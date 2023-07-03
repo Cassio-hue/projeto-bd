@@ -13,11 +13,11 @@ export class StudentsService {
   CRUD: CRUD;
   constructor(@InjectKnex() private readonly knex: Knex) {
     this.knex = knex;
-    this.CRUD = new CRUD(this.knex);
+    this.CRUD = new CRUD(this.knex, 'student');
   }
 
   async create(createStudentDto: CreateStudentDto) {
-    await this.CRUD.create('student', createStudentDto).catch((err) => {
+    await this.CRUD.create(createStudentDto).catch((err) => {
       if (err.code == '23505')
         throw new UnprocessableEntityException(err.detail);
       else throw new BadRequestException('Algo deu errado ao criar estudante');
@@ -25,12 +25,16 @@ export class StudentsService {
     return 'Estudante adicionado com sucesso';
   }
 
-  findAll() {
-    return `This action returns all students`;
+  async findAll() {
+    const response = await this.CRUD.findAll('student').catch();
+    return response;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} student`;
+  async findOne({ id, email }: { id?: number; email?: string }) {
+    console.log('OLHA só: ', id, email);
+    if (!id && !email)
+      throw new BadRequestException('É necessário fornecer um email ou id');
+    return await this.CRUD.findOne({ id, email });
   }
 
   update(id: number, updateStudentDto: UpdateStudentDto) {
