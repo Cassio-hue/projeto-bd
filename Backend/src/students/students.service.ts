@@ -11,9 +11,10 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 @Injectable()
 export class StudentsService {
   CRUD: CRUD;
+  table_name = 'Student';
   constructor(@InjectKnex() private readonly knex: Knex) {
     this.knex = knex;
-    this.CRUD = new CRUD(this.knex, 'student');
+    this.CRUD = new CRUD(this.knex, this.table_name);
   }
 
   async create(createStudentDto: CreateStudentDto) {
@@ -26,7 +27,7 @@ export class StudentsService {
   }
 
   async findAll() {
-    const response = await this.CRUD.findAll('student').catch();
+    const response = await this.CRUD.findAll(this.table_name).catch();
     return response;
   }
 
