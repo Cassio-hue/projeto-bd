@@ -7,5 +7,5 @@ export class CreateDepartamentDto {
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  departamentName: string;
 }

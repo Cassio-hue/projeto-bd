@@ -1,4 +1,4 @@
 export class UpdateDepartamentDto {
   code: number;
-  name: string;
+  departamentName: string;
 }

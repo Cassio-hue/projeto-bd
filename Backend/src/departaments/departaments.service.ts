@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateDepartamentDto } from './dto/create-departament.dto';
 import { UpdateDepartamentDto } from './dto/update-departament.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
@@ -13,8 +17,14 @@ export class DepartamentsService {
     this.CRUD = new CRUD(this.knex, this.table_name);
   }
 
-  create(createDepartamentDto: CreateDepartamentDto) {
-    return 'This action adds a new departament';
+  async create(createDepartamentDto: CreateDepartamentDto) {
+    await this.CRUD.create(createDepartamentDto).catch((err) => {
+      if (err.code == '23505')
+        throw new UnprocessableEntityException(err.detail);
+      else
+        throw new BadRequestException('Algo deu errado ao criar departamento');
+    });
+    return 'Departamento adicionado com sucesso';
   }
 
   async findAll() {
