@@ -31,7 +31,6 @@ export class StudentsService {
   }
 
   async findOne({ id, email }: { id?: number; email?: string }) {
-    console.log('OLHA só: ', id, email);
     if (!id && !email)
       throw new BadRequestException('É necessário fornecer um email ou id');
     return await this.CRUD.findOne({ id, email });
