@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { KnexModule } from 'nestjs-knex';
 import { StudentsModule } from './students/students.module';
-import { DepartamentsModule } from './departaments/departaments.module';
+import { DepartmentsModule } from './departments/departments.module';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { DepartamentsModule } from './departaments/departaments.module';
       },
     }),
     StudentsModule,
-    DepartamentsModule,
+    DepartmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

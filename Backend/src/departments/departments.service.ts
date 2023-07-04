@@ -1,15 +1,16 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CreateDepartamentDto } from './dto/create-departament.dto';
-import { UpdateDepartamentDto } from './dto/update-departament.dto';
+import { CreateDepartamentDto } from './dto/create-departments.dto';
+import { UpdateDepartamentDto } from './dto/update-department.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { CRUD } from '../utils';
 
 @Injectable()
-export class DepartamentsService {
+export class DepartmentsService {
   CRUD: CRUD;
   table_name = 'Department';
   constructor(@InjectKnex() private readonly knex: Knex) {
@@ -32,8 +33,14 @@ export class DepartamentsService {
     return response;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} departament`;
+  async findOne(id: number) {
+    return await this.CRUD.findOne({ id })
+      .catch()
+      .then((res) => {
+        if (res.length == 0)
+          throw new NotFoundException('Id fornecido não foi encontrado');
+        return res;
+      });
   }
 
   update(id: number, updateDepartamentDto: UpdateDepartamentDto) {
