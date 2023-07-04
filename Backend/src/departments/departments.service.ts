@@ -43,11 +43,28 @@ export class DepartmentsService {
       });
   }
 
-  update(id: number, updateDepartamentDto: UpdateDepartamentDto) {
-    return `This action updates a #${id} departament`;
+  async update(id: number, updateDepartamentDto: UpdateDepartamentDto) {
+    await this.checkDepartmentId(id);
+    await this.CRUD.update(id, updateDepartamentDto).catch((err) => {
+      if (err.code == '23505')
+        throw new UnprocessableEntityException(err.detail);
+      else
+        throw new BadRequestException(
+          'Algo deu errado ao atualizar departamento',
+        );
+    });
+    return 'Departamento atualizado com sucesso';
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} departament`;
+  async remove(id: number) {
+    await this.checkDepartmentId(id);
+    await this.CRUD.delete(id).catch();
+    return 'Departamento removido com sucesso';
+  }
+
+  private async checkDepartmentId(id: number) {
+    const department = await this.findOne(id);
+    if (department.length == 0)
+      throw new NotFoundException('Id fornecido não foi encontrado');
   }
 }
