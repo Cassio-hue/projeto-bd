@@ -13,12 +13,12 @@ interface Props {
 
 export const Card = ({ values }: Props) => {
   return (
-    <>
+    <div className={clsx('flex flex-col items-center justify-center m-auto w-full h-[90%] overflow-auto')}>
       {values.map((item, idx) => (
         <div
           key={idx}
           className={clsx(
-            'flex flex-col bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl w-1/2 p-1 m-3'
+            'flex flex-col bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl w-1/2 p-1 m-3 first-of-type:mt-36'
           )}
         >
           <div className={clsx('flex flex-col rounded-2xl p-5 bg-black text-white')}>
@@ -38,6 +38,6 @@ export const Card = ({ values }: Props) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
