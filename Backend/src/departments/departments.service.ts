@@ -62,7 +62,7 @@ export class DepartmentsService {
     return 'Departamento removido com sucesso';
   }
 
-  private async checkDepartmentId(id: number) {
+  async checkDepartmentId(id: number) {
     const department = await this.findOne(id);
     if (department.length == 0)
       throw new NotFoundException('Id fornecido não foi encontrado');
