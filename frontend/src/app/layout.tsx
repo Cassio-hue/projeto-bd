@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={clsx("flex h-screen justify-center items-center m-auto")}>{children}</body>
+      <body className={clsx("flex flex-col h-screen justify-center items-center m-auto bg-bg-body text-white")}>{children}</body>
     </html>
   )
 }
