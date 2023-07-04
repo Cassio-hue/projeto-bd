@@ -1,6 +1,6 @@
 # files
 .env
-.yarn.lock
+yarn.lock
 
 # compiled output
 /dist
