@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -34,11 +35,27 @@ export class StudentsService {
   async findOne({ id, email }: { id?: number; email?: string }) {
     if (!id && !email)
       throw new BadRequestException('É necessário fornecer um email ou id');
-    return await this.CRUD.findOne({ id, email });
+    return await this.CRUD.findOne({ id, email })
+      .catch()
+      .then((res) => {
+        if (res.length == 0)
+          throw new NotFoundException('Id fornecido não foi encontrado');
+        return res;
+      });
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+    const user = await this.findOne({ id });
+    if (user.length == 0)
+      throw new NotFoundException('Id fornecido não foi encontrado');
+
+    await this.CRUD.update(id, updateStudentDto).catch((err) => {
+      throw new BadRequestException(
+        'Algo deu errado ao atualizar estudante',
+        err,
+      );
+    });
+    return 'Estudante atualizado com sucesso';
   }
 
   remove(id: number) {
