@@ -7,7 +7,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Inserts seed entries
   await knex.raw(`
 -- Popula a tabela de departamento com dados relativos a Universidade de Brasília
-INSERT INTO Department (code, departamentName)
+INSERT INTO Department (code, departmentName)
 VALUES
 (643,'CENTRO DE APOIO AO DESENVOLVIMENTO TECNOLÓGICO - BRASÍLIA'),
 (640,'CENTRO DE DESENVOLVIMENTO SUSTENTÁVEL - BRASÍLIA'),
