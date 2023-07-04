@@ -62,7 +62,9 @@ export class CRUD {
       .then((res) => res.rows);
   }
 
-  async delete(id, table_name: string) {
-    return await this.knex.raw(`DELETE FROM ${table_name} WHERE id = ${id}`);
+  async delete(id) {
+    return await this.knex.raw(
+      `DELETE FROM ${this.table_name} WHERE id = ${id}`,
+    );
   }
 }

@@ -57,7 +57,7 @@ export class StudentsService {
 
   async remove(id: number) {
     await this.checkUserId(id);
-    await this.CRUD.delete(id, this.table_name).catch();
+    await this.CRUD.delete(id).catch();
     return 'Estudante removido com sucesso';
   }
 
