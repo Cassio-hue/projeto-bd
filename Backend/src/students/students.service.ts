@@ -45,10 +45,7 @@ export class StudentsService {
   }
 
   async update(id: number, updateStudentDto: UpdateStudentDto) {
-    const user = await this.findOne({ id });
-    if (user.length == 0)
-      throw new NotFoundException('Id fornecido não foi encontrado');
-
+    await this.checkUserId(id);
     await this.CRUD.update(id, updateStudentDto).catch((err) => {
       throw new BadRequestException(
         'Algo deu errado ao atualizar estudante',
@@ -58,7 +55,15 @@ export class StudentsService {
     return 'Estudante atualizado com sucesso';
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: number) {
+    await this.checkUserId(id);
+    await this.CRUD.delete(id, this.table_name).catch();
+    return 'Estudante removido com sucesso';
+  }
+
+  private async checkUserId(id: number) {
+    const user = await this.findOne({ id });
+    if (user.length == 0)
+      throw new NotFoundException('Id fornecido não foi encontrado');
   }
 }
