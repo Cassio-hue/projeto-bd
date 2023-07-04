@@ -21,7 +21,7 @@ export const Card = ({ values }: Props) => {
             'flex flex-col bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl w-1/2 p-1 m-3'
           )}
         >
-          <div className={clsx('flex flex-col rounded-2xl p-5 bg-black')}>
+          <div className={clsx('flex flex-col rounded-2xl p-5 bg-black text-white')}>
             <h1 className={clsx('text-2xl mb-4')}>{item.discipline}</h1>
             <span className={clsx('font-bold')}>
               Departamento:
