@@ -22,6 +22,18 @@ export class CRUD {
     );
   }
 
+  async update(id: number, data: { [key: string]: any }) {
+    const columnValue = Object.entries(data)
+      .map(
+        ([chave, valor]) =>
+          `${chave} = ${typeof valor === 'string' ? `'${valor}'` : valor}`,
+      )
+      .join(', ');
+    await this.knex.raw(`
+    UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id}
+    `);
+  }
+
   async findOne(where: Record<any, any>) {
     const whereString = Object.entries(where)
       .filter(([, value]) => value !== undefined)
@@ -48,5 +60,9 @@ export class CRUD {
       `,
       )
       .then((res) => res.rows);
+  }
+
+  async delete(id, table_name: string) {
+    return await this.knex.raw(`DELETE FROM ${table_name} WHERE id = ${id}`);
   }
 }
