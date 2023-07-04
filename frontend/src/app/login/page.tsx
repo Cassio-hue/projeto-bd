@@ -1,11 +1,9 @@
+import { Input } from '../components/Input'
 
 export default function Login() {
-    return (
-      <>
-        <form>
-            <h1>LOGIN!</h1>
-        </form>
-      </>
-    )
-  }
-  
+  return (
+    <>
+      <Input />
+    </>
+  )
+}
