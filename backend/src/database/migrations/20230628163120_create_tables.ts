@@ -12,21 +12,17 @@ export async function up(knex: Knex): Promise<void> {
   );
 
   CREATE TABLE IF NOT EXISTS department (
-    id SERIAL PRIMARY KEY UNIQUE,
-    code INT NOT NULL UNIQUE,
+    department_code INT PRIMARY KEY UNIQUE NOT NULL,
     department_name VARCHAR(100) NOT NULL
   );
   
   CREATE TABLE IF NOT EXISTS teacher (
     id SERIAL PRIMARY KEY UNIQUE,
-    teacher_id CHAR(9) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL,
-    department_id INT,
-    CONSTRAINT fk_department_id
-      FOREIGN KEY (department_id)
-      REFERENCES department (id)
+    department_code INT NOT NULL,
+    CONSTRAINT fk_department_code
+      FOREIGN KEY (department_code)
+      REFERENCES department (department_code)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
   );
@@ -34,14 +30,14 @@ export async function up(knex: Knex): Promise<void> {
   CREATE TABLE IF NOT EXISTS discipline (
     id SERIAL PRIMARY KEY UNIQUE,
     code VARCHAR(8) NOT NULL UNIQUE,
-    discipline_name VARCHAR(45) NOT NULL,
-    department_id INT,
-    CONSTRAINT fk_department_id
-      FOREIGN KEY (department_id)
-      REFERENCES department (id)
+    discipline_name VARCHAR(100) NOT NULL,
+    department_code INT NOT NULL,
+    CONSTRAINT fk_department_code
+      FOREIGN KEY (department_code)
+      REFERENCES department (department_code)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-    teacher_id INT,
+    teacher_id INT NOT NULL,
     CONSTRAINT fk_teacher_id
       FOREIGN KEY (teacher_id)
       REFERENCES teacher (id)

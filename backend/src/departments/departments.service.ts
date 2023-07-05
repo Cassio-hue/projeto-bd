@@ -29,8 +29,11 @@ export class DepartmentsService {
   }
 
   async findAll() {
-    const response = await this.CRUD.findAll(this.table_name).catch();
-    return response;
+    return await this.CRUD.findAll()
+      .catch(() => {
+        throw Error('Erro ao listar todos os departamentos');
+      })
+      .then((res) => res);
   }
 
   async findOne(id: number) {

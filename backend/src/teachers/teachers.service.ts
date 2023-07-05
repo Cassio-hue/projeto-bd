@@ -32,7 +32,7 @@ export class TeachersService {
   }
 
   async findAll() {
-    return await this.CRUD.findAll(this.table_name)
+    return await this.CRUD.findAll()
       .catch(() => {
         throw Error('Erro ao listar todos os professores');
       })
@@ -41,7 +41,9 @@ export class TeachersService {
 
   async findOne(id: number) {
     return await this.CRUD.findOne({ id })
-      .catch()
+      .catch(() => {
+        throw Error(`Erro ao tentar encontrar professor pelo id = ${id}`);
+      })
       .then((res) => {
         if (res.length == 0)
           throw new NotFoundException('Id fornecido não foi encontrado');

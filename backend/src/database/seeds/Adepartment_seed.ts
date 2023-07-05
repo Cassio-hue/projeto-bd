@@ -2,12 +2,12 @@ import { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
-  await knex.raw('DELETE FROM Department CASCADE');
+  await knex.raw('DELETE FROM department CASCADE;');
 
   // Inserts seed entries
   await knex.raw(`
 -- Popula a tabela de departamento com dados relativos a Universidade de Brasília
-INSERT INTO Department (code, department_name)
+INSERT INTO department (department_code, department_name)
 VALUES
 (508,'DEPTO CIÊNCIAS DA COMPUTAÇÃO - BRASÍLIA'),
 (466,'DEPTO CIÊNCIAS FISIOLÓGICAS - BRASÍLIA'),

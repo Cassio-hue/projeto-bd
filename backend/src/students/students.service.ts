@@ -28,7 +28,7 @@ export class StudentsService {
   }
 
   async findAll() {
-    return await this.CRUD.findAll(this.table_name)
+    return await this.CRUD.findAll()
       .catch(() => {
         throw Error('Erro ao buscar todos os estudantes');
       })

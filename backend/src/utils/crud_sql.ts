@@ -46,8 +46,8 @@ export class CRUD {
     return await this.knex.raw(query).then((res) => res.rows);
   }
 
-  async findAll(table_name: string) {
-    const query = `SELECT * FROM ${table_name};`;
+  async findAll() {
+    const query = `SELECT * FROM ${this.table_name};`;
 
     return await this.knex.raw(query).then((res) => res.rows);
   }
