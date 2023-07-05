@@ -36,6 +36,10 @@ export const Autocomplete = ({ label, name, values }: AutocompleteProps) => {
           renderInput={({ ...params }) => (
             <TextField {...params} {...field} label={label} />
           )}
+          onChange={(e, selectedOption) => {
+            const departmentId = selectedOption ? selectedOption.id : null;
+            field.onChange(departmentId);
+          }}
         />
       )}
     />

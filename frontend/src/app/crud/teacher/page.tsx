@@ -6,7 +6,8 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
-import { getAllDepartments } from '../../api/api'
+import { createTeacher, getAllDepartments } from '../../api/api'
+import { CreateTeacher } from '../../utils/types'
 
 interface Department {
   id: number
@@ -14,27 +15,8 @@ interface Department {
   departmentname: string
 }
 
-interface DataType {
-  teacherID: string
-  name: string
-  email: string
-  password: string
-  department_id: number
-}
-
-// const departments = [
-//   {
-//     id: 1,
-//     label: 'Departamento de Ciência da Computação',
-//   },
-//   {
-//     id: 2,
-//     label: 'Departamento de Matemática',
-//   },
-// ]
-
 export default function Login() {
-  const userFormDefaultValues: DataType = {
+  const userFormDefaultValues: CreateTeacher = {
     teacherID: '',
     name: '',
     email: '',
@@ -42,7 +24,7 @@ export default function Login() {
     department_id: 0,
   }
 
-  const methods = useForm<DataType>({
+  const methods = useForm<CreateTeacher>({
     defaultValues: userFormDefaultValues,
   })
 
@@ -60,8 +42,16 @@ export default function Login() {
       .catch((err) => console.log('Erro ao buscar departamentos', err))
   }, [])
 
-  const onSubmit: SubmitHandler<DataType> = (data) => {
+  const onSubmit: SubmitHandler<CreateTeacher> = async (data) => {
     console.log(data)
+    try {
+      await createTeacher(data)
+      // Sucesso: fazer algo após a criação do professor
+      console.log('Professor criado com sucesso!')
+    } catch (err) {
+      // Erro: lidar com o erro de criação do professor
+      console.log('Erro ao criar o professor', err)
+    }
   }
 
   return (
@@ -80,7 +70,7 @@ export default function Login() {
           values={departmentsData}
           label={'Departamento'}
         />
-        <Button type="submit">Criar</Button>
+        <Button type="submit">Criar professor</Button>
       </form>
     </FormProvider>
   )
