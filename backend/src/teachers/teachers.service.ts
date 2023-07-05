@@ -14,7 +14,7 @@ import { UpdateTeacherDto } from './dto/update-teacher.dto';
 export class TeachersService {
   CRUD: CRUD;
   DepartmentCRUD: DepartmentsService;
-  table_name = 'Teacher';
+  table_name = 'teacher';
   constructor(@InjectKnex() private readonly knex: Knex) {
     this.knex = knex;
     this.CRUD = new CRUD(this.knex, this.table_name);
@@ -32,8 +32,11 @@ export class TeachersService {
   }
 
   async findAll() {
-    const response = await this.CRUD.findAll(this.table_name).catch();
-    return response;
+    return await this.CRUD.findAll(this.table_name)
+      .catch(() => {
+        throw Error('Erro ao listar todos os professores');
+      })
+      .then((res) => res);
   }
 
   async findOne(id: number) {
@@ -59,7 +62,9 @@ export class TeachersService {
 
   async remove(id: number) {
     await this.checkTeacherId(id);
-    await this.CRUD.delete(id).catch();
+    await this.CRUD.delete(id).catch(() => {
+      throw Error('Erro ao tentar remover professor');
+    });
     return 'Professor removido com sucesso';
   }
 

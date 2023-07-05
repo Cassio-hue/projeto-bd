@@ -12,7 +12,7 @@ export class CreateTeacherDto {
   @IsNotEmpty()
   @IsNumberString()
   @Length(9, 9, { message: 'A string must be exactly 9 characters long.' })
-  teacherID: string;
+  teacher_id: string;
 
   @IsNotEmpty()
   @IsString()
