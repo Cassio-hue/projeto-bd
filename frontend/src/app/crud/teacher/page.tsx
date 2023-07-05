@@ -6,6 +6,7 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
+import { getAllDepartments } from '../../api/api'
 
 interface Department {
   id: number
@@ -46,20 +47,18 @@ export default function Login() {
   })
 
   const [departmentsData, setDepartments] = useState([])
-  
-  useEffect(() => {
-    fetch('http://localhost:3333/departments')
-      .then((response) => response.json())
-      .then((json) => {
-        const formattedData = json.map((item: Department) => ({
-          id: item.id,
-          label: item.departmentname
-        }));
-        setDepartments(formattedData);
-      })
-      .catch((err) => console.log('Erro de solicitação', err));
-  }, []);
 
+  useEffect(() => {
+    getAllDepartments()
+      .then((data) => {
+        const formattedData = data.map((item: Department) => ({
+          id: item.id,
+          label: item.departmentname,
+        }))
+        setDepartments(formattedData)
+      })
+      .catch((err) => console.log('Erro ao buscar departamentos', err))
+  }, [])
 
   const onSubmit: SubmitHandler<DataType> = (data) => {
     console.log(data)
