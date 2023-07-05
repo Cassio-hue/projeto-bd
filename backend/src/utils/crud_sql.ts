@@ -14,12 +14,9 @@ export class CRUD {
       .map((value) => `'${value}'`)
       .join(',');
 
-    await this.knex.raw(
-      `
-      INSERT INTO ${this.table_name} (${columns})
-      VALUES (${values});
-      `,
-    );
+    const query = `INSERT INTO ${this.table_name} (${columns}) VALUES (${values});`;
+
+    await this.knex.raw(query);
   }
 
   async update(id: number, data: { [key: string]: any }) {
@@ -29,9 +26,10 @@ export class CRUD {
           `${chave} = ${typeof valor === 'string' ? `'${valor}'` : valor}`,
       )
       .join(', ');
-    await this.knex.raw(`
-    UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id}
-    `);
+
+    const query = `UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id}`;
+
+    await this.knex.raw(query);
   }
 
   async findOne(where: Record<any, any>) {
@@ -43,28 +41,20 @@ export class CRUD {
       )
       .slice(0, -2);
 
-    return await this.knex
-      .raw(
-        `
-    SELECT * FROM ${this.table_name} WHERE ${whereString}
-    `,
-      )
-      .then((res) => res.rows);
+    const query = `SELECT * FROM ${this.table_name} WHERE ${whereString}`;
+
+    return await this.knex.raw(query).then((res) => res.rows);
   }
 
   async findAll(table_name: string) {
-    return await this.knex
-      .raw(
-        `
-      SELECT * FROM ${table_name};
-      `,
-      )
-      .then((res) => res.rows);
+    const query = `SELECT * FROM ${table_name};`;
+
+    return await this.knex.raw(query).then((res) => res.rows);
   }
 
   async delete(id) {
-    return await this.knex.raw(
-      `DELETE FROM ${this.table_name} WHERE id = ${id}`,
-    );
+    const query = `DELETE FROM ${this.table_name} WHERE id = ${id}`;
+
+    return await this.knex.raw(query);
   }
 }

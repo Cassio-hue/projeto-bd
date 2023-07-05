@@ -12,7 +12,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 @Injectable()
 export class StudentsService {
   CRUD: CRUD;
-  table_name = 'Student';
+  table_name = 'student';
   constructor(@InjectKnex() private readonly knex: Knex) {
     this.knex = knex;
     this.CRUD = new CRUD(this.knex, this.table_name);
@@ -22,14 +22,17 @@ export class StudentsService {
     await this.CRUD.create(createStudentDto).catch((err) => {
       if (err.code == '23505')
         throw new UnprocessableEntityException(err.detail);
-      else throw new BadRequestException('Algo deu errado ao criar estudante');
+      else throw new BadRequestException('Erro ao tentar criar estudante');
     });
     return 'Estudante adicionado com sucesso';
   }
 
   async findAll() {
-    const response = await this.CRUD.findAll(this.table_name).catch();
-    return response;
+    return await this.CRUD.findAll(this.table_name)
+      .catch(() => {
+        throw Error('Erro ao buscar todos os estudantes');
+      })
+      .then((res) => res);
   }
 
   async findOne({ id, email }: { id?: number; email?: string }) {
@@ -47,17 +50,16 @@ export class StudentsService {
   async update(id: number, updateStudentDto: UpdateStudentDto) {
     await this.checkUserId(id);
     await this.CRUD.update(id, updateStudentDto).catch((err) => {
-      throw new BadRequestException(
-        'Algo deu errado ao atualizar estudante',
-        err,
-      );
+      throw new BadRequestException('Erro ao tentar atualizar estudante', err);
     });
     return 'Estudante atualizado com sucesso';
   }
 
   async remove(id: number) {
     await this.checkUserId(id);
-    await this.CRUD.delete(id).catch();
+    await this.CRUD.delete(id).catch(() => {
+      throw Error('Erro ao tentar remover estudante');
+    });
     return 'Estudante removido com sucesso';
   }
 

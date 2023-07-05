@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsNumberString,
@@ -10,7 +11,7 @@ export class CreateStudentDto {
   @IsNotEmpty()
   @IsNumberString()
   @Length(9, 9, { message: 'A string must be exactly 9 characters long.' })
-  studentID: string;
+  student_id: string;
 
   @IsNotEmpty()
   @IsString()
@@ -24,4 +25,8 @@ export class CreateStudentDto {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  is_admin: boolean;
 }
