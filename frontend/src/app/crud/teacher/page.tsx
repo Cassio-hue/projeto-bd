@@ -39,18 +39,16 @@ export default function Login() {
         }))
         setDepartments(formattedData)
       })
-      .catch((err) => console.log('Erro ao buscar departamentos', err))
+      .catch(() => alert('Erro ao listar departamentos'))
   }, [])
 
   const onSubmit: SubmitHandler<CreateTeacher> = async (data) => {
-    console.log(data)
     try {
       await createTeacher(data)
-      // Sucesso: fazer algo após a criação do professor
-      console.log('Professor criado com sucesso!')
+      alert('Professor criado com sucesso!')
     } catch (err) {
-      // Erro: lidar com o erro de criação do professor
-      console.log('Erro ao criar o professor', err)
+      console.log(err)
+      alert('Ocorreu um erro ao criar o professor')
     }
   }
 
