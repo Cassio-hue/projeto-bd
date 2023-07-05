@@ -22,5 +22,5 @@ export class UpdateTeacherDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  departament_id: number;
+  department_id: number;
 }

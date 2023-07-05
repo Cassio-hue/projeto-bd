@@ -30,5 +30,5 @@ export class CreateTeacherDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  departament_id: number;
+  department_id: number;
 }
