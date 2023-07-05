@@ -6,6 +6,7 @@ import { KnexModule } from 'nestjs-knex';
 import { StudentsModule } from './students/students.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { TeachersModule } from './teachers/teachers.module';
+import { DisciplinesModule } from './disciplines/disciplines.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TeachersModule } from './teachers/teachers.module';
     StudentsModule,
     DepartmentsModule,
     TeachersModule,
+    DisciplinesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
