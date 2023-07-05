@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bg-body': 'rgba(0, 0, 0, 0.8)',
+        'cinza-transparente': 'rgba(218, 216, 217, 0.41)'
       },
     },
   },

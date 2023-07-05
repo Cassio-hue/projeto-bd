@@ -11,9 +11,10 @@ type AutocompleteProps = TextFieldProps & {
   label?: string
   name: string
   values: DataAutocomplete[]
+  onSelect?: (selectedValue: DataAutocomplete | null) => void
 }
 
-export const Autocomplete = ({ label, name, values }: AutocompleteProps) => {
+export const Autocomplete = ({ label, name, values, onSelect }: AutocompleteProps) => {
   const methods = useFormContext()
 
   return (
@@ -39,6 +40,16 @@ export const Autocomplete = ({ label, name, values }: AutocompleteProps) => {
           onChange={(e, selectedOption) => {
             const departmentId = selectedOption ? selectedOption.id : null;
             field.onChange(departmentId);
+
+            if (onSelect && selectedOption) {
+              onSelect(selectedOption);
+            }
+          }}
+          onBlur={(e) => {
+            const target = e.target as HTMLInputElement;
+            if (!values.find((item) => item.label === target.value)) {
+              field.onChange(null);
+            }
           }}
         />
       )}

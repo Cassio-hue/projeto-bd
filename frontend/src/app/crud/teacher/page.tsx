@@ -1,75 +1,24 @@
 'use client'
-
-import clsx from 'clsx'
-import { Input } from '../../components/Input'
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
 import { Button } from '../../components/Button'
-import { Autocomplete } from '../../components/Autocomplete'
-import { useEffect, useState } from 'react'
-import { createTeacher, getAllDepartments } from '../../api/api'
-import { CreateTeacher } from '../../utils/types'
+import { Modal } from '../../components/Modal'
+import { CreateTeacher } from './create_teacher'
+import clsx from 'clsx'
+import { UpdateTeacher } from './update_teacher'
 
-interface Department {
-  id: number
-  code: number
-  departmentname: string
-}
-
-export default function Login() {
-  const userFormDefaultValues: CreateTeacher = {
-    teacherID: '',
-    name: '',
-    email: '',
-    password: '',
-    department_id: 0,
-  }
-
-  const methods = useForm<CreateTeacher>({
-    defaultValues: userFormDefaultValues,
-  })
-
-  const [departmentsData, setDepartments] = useState([])
-
-  useEffect(() => {
-    getAllDepartments()
-      .then((data) => {
-        const formattedData = data.map((item: Department) => ({
-          id: item.id,
-          label: item.departmentname,
-        }))
-        setDepartments(formattedData)
-      })
-      .catch(() => alert('Erro ao listar departamentos'))
-  }, [])
-
-  const onSubmit: SubmitHandler<CreateTeacher> = async (data) => {
-    try {
-      await createTeacher(data)
-      alert('Professor criado com sucesso!')
-    } catch (err) {
-      console.log(err)
-      alert('Ocorreu um erro ao criar o professor')
-    }
-  }
-
+export default function CRUDTeacher() {
+  const [openCreate, setCreateOpen] = useState(false)
+  const [openUpdate, setUpdateOpen] = useState(false)
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex items-center flex-col gap-8 w-2/6')}
-      >
-        <h1 className="text-lg">Cadastrar professor</h1>
-        <Input name="teacherID" type="text" label={'Matrícula'} />
-        <Input name="name" type="text" label={'Nome'} />
-        <Input name="email" type="email" label={'E-mail'} />
-        <Input name="password" type="password" label={'Senha'} />
-        <Autocomplete
-          name="department_id"
-          values={departmentsData}
-          label={'Departamento'}
-        />
-        <Button type="submit">Criar professor</Button>
-      </form>
-    </FormProvider>
+    <div className={clsx('flex flex-col gap-8')}>
+      <Modal open={openCreate} handleClose={() => setCreateOpen(false)}>
+        <CreateTeacher />
+      </Modal>
+      <Modal open={openUpdate} handleClose={() => setUpdateOpen(false)}>
+        <UpdateTeacher />
+      </Modal>
+      <Button onClick={() => setCreateOpen(true)}>Cadastrar professor</Button>
+      <Button onClick={() => setUpdateOpen(true)}>Editar professor</Button>
+    </div>
   )
 }
