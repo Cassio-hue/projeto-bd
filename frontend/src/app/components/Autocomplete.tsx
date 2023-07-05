@@ -2,7 +2,7 @@ import { Autocomplete as MUIAutocomplete, TextField } from '@mui/material'
 import { TextFieldProps } from '@mui/material'
 import { Controller, useFormContext } from 'react-hook-form'
 
-interface DataAutocomplete {
+export interface DataAutocomplete {
   id: number
   label: string
 }
@@ -26,6 +26,13 @@ export const Autocomplete = ({ label, name, values }: AutocompleteProps) => {
           options={values}
           getOptionLabel={(option) => option.label}
           isOptionEqualToValue={(option, value) => option.label === value.label}
+          renderOption={(props, option) => {
+            return (
+              <li {...props} key={option.id}>
+                {option.label}
+              </li>
+            );
+          }}
           renderInput={({ ...params }) => (
             <TextField {...params} {...field} label={label} />
           )}

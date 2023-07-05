@@ -7,9 +7,10 @@ import { TextFieldProps } from '@mui/material'
 type InputProps = TextFieldProps & {
   label?: string
   name: string
+  type: string
 }
 
-export const Input = ({ label, name }: InputProps) => {
+export const Input = ({ label, name, type }: InputProps) => {
   const methods = useFormContext()
 
   return (
@@ -18,7 +19,9 @@ export const Input = ({ label, name }: InputProps) => {
       name={name}
       render={({ field }) => (
         <TextField
+          fullWidth
           label={label}
+          type={type}
           {...field}
         />
       )}

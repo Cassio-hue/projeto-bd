@@ -5,6 +5,13 @@ import { Input } from '../../components/Input'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
+import { useEffect, useState } from 'react'
+
+interface Department {
+  id: number
+  code: number
+  departmentname: string
+}
 
 interface DataType {
   teacherID: string
@@ -14,16 +21,16 @@ interface DataType {
   department_id: number
 }
 
-const departments = [
-  {
-    id: 1,
-    label: 'Departamento de Ciência da Computação',
-  },
-  {
-    id: 2,
-    label: 'Departamento de Matemática',
-  },
-]
+// const departments = [
+//   {
+//     id: 1,
+//     label: 'Departamento de Ciência da Computação',
+//   },
+//   {
+//     id: 2,
+//     label: 'Departamento de Matemática',
+//   },
+// ]
 
 export default function Login() {
   const userFormDefaultValues: DataType = {
@@ -38,12 +45,31 @@ export default function Login() {
     defaultValues: userFormDefaultValues,
   })
 
-  const onSubmit: SubmitHandler<DataType> = (data) => console.log(data)
+  const [departmentsData, setDepartments] = useState([])
+  
+  useEffect(() => {
+    fetch('http://localhost:3333/departments')
+      .then((response) => response.json())
+      .then((json) => {
+        const formattedData = json.map((item: Department) => ({
+          id: item.id,
+          label: item.departmentname
+        }));
+        setDepartments(formattedData);
+      })
+      .catch((err) => console.log('Erro de solicitação', err));
+  }, []);
+
+
+  const onSubmit: SubmitHandler<DataType> = (data) => {
+    console.log(data)
+  }
+
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex items-center flex-col gap-8')}
+        className={clsx('flex items-center flex-col gap-8 w-2/6')}
       >
         <h1 className="text-lg">Cadastrar professor</h1>
         <Input name="teacherID" type="text" label={'Matrícula'} />
@@ -52,7 +78,7 @@ export default function Login() {
         <Input name="password" type="password" label={'Senha'} />
         <Autocomplete
           name="department_id"
-          values={departments}
+          values={departmentsData}
           label={'Departamento'}
         />
         <Button type="submit">Criar</Button>
