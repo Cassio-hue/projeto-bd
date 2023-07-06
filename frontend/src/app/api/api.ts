@@ -1,5 +1,14 @@
 import { CreateTeacherType, UpdateTeacherType } from '../utils/types'
 
+export const getAllClassInfo = () => {
+  return fetch('http://localhost:3333/classes/complete-info')
+    .then((response) => response.json())
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
 export const getAllDepartments = () => {
   return fetch('http://localhost:3333/departments')
     .then((response) => response.json())
