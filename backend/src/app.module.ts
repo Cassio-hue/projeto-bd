@@ -7,6 +7,7 @@ import { StudentsModule } from './students/students.module';
 import { DepartmentsModule } from './departments/departments.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { DisciplinesModule } from './disciplines/disciplines.module';
+import { ClassesModule } from './classes/classes.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { DisciplinesModule } from './disciplines/disciplines.module';
     DepartmentsModule,
     TeachersModule,
     DisciplinesModule,
+    ClassesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
