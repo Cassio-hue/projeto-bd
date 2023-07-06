@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
 import { CRUD } from '../utils';
@@ -25,8 +25,14 @@ export class DisciplinesService {
       .then((res) => res);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} discipline`;
+  async findOne(id: number) {
+    return await this.CRUD.findOne({ id })
+      .catch()
+      .then((res) => {
+        if (res.length == 0)
+          throw new NotFoundException('Id fornecido não foi encontrado');
+        return res;
+      });
   }
 
   update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
