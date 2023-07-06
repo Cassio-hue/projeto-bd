@@ -25,9 +25,13 @@ export class StudentsController {
     return this.studentsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.studentsService.findOne({ id: +id });
+  @Get(':identifier')
+  findOne(@Param('identifier') identifier: string) {
+    if (isNaN(+identifier)) {
+      return this.studentsService.findOne({ email: identifier });
+    } else {
+      return this.studentsService.findOne({ id: +identifier });
+    }
   }
 
   @Patch(':id')

@@ -35,10 +35,10 @@ export class CRUD {
   async findOne(where: Record<any, any>) {
     const whereString = Object.entries(where)
       .filter(([, value]) => value !== undefined)
-      .reduce(
-        (acumulador, [key, value]) => `${key} = ${value}, ${acumulador}`,
-        '',
-      )
+      .reduce((acumulador, [key, value]) => {
+        const formattedValue = typeof value === 'string' ? `'${value}'` : value;
+        return `${key} = ${formattedValue}, ${acumulador}`;
+      }, '')
       .slice(0, -2);
 
     const query = `SELECT * FROM ${this.table_name} WHERE ${whereString}`;

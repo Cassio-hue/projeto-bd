@@ -43,7 +43,7 @@ export class StudentsService {
       .then((res) => {
         if (res.length == 0)
           throw new NotFoundException('Id fornecido não foi encontrado');
-        return res;
+        return res[0];
       });
   }
 
