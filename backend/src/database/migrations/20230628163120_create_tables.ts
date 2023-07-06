@@ -64,12 +64,6 @@ export async function up(knex: Knex): Promise<void> {
       REFERENCES discipline (id)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-    rating_id INT,
-    CONSTRAINT fk_rating_id
-      FOREIGN KEY (rating_id)
-      REFERENCES rating (id)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
     teacher_id INT,
     CONSTRAINT fk_teacher_id
       FOREIGN KEY (teacher_id)
