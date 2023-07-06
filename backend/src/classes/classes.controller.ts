@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
@@ -15,6 +23,11 @@ export class ClassesController {
   @Get()
   findAll() {
     return this.classesService.findAll();
+  }
+
+  @Get('/complete-info')
+  findAllClassInfo() {
+    return this.classesService.classCompleteInfo();
   }
 
   @Get(':id')
