@@ -46,8 +46,10 @@ export class CRUD {
     return await this.knex.raw(query).then((res) => res.rows);
   }
 
-  async findAll() {
-    const query = `SELECT * FROM ${this.table_name};`;
+  async findAll(table_view_name?: string) {
+    const query = `SELECT * FROM ${
+      table_view_name ? table_view_name : this.table_name
+    };`;
 
     return await this.knex.raw(query).then((res) => res.rows);
   }
