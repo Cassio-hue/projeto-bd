@@ -36,12 +36,6 @@ export async function up(knex: Knex): Promise<void> {
       FOREIGN KEY (department_code)
       REFERENCES department (department_code)
       ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
-    teacher_id INT NOT NULL,
-    CONSTRAINT fk_teacher_id
-      FOREIGN KEY (teacher_id)
-      REFERENCES teacher (id)
-      ON DELETE NO ACTION
       ON UPDATE NO ACTION
   );  
   

@@ -8,7 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex.raw(`
   -- Popula a tabela de disciplinas com dados relativos a Universidade de Brasília
 
-  INSERT INTO discipline (code, discipline_name, department_code, teacher_id)
+  INSERT INTO discipline (code, discipline_name, department_code)
   VALUES 
   ('CIC0002', 'FUNDAMENTOS TEÓRICOS DA COMPUTAÇÃO' , 508),
   ('CIC0003', 'INTRODUÇÃO AOS SISTEMAS COMPUTACIONAIS' , 508),
