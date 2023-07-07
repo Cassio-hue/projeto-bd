@@ -1,3 +1,8 @@
+export type SignInType = {
+  email: string
+  password: string
+}
+
 export type CreateTeacherType = {
   teacherID: string
   name: string

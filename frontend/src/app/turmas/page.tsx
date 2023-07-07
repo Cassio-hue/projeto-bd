@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { CardClass, ClassType } from '../components/Card'
-import { getAllClassInfo } from '../api/api'
+import { getAllClassInfo, isAuthenticated } from '../api/api'
 import clsx from 'clsx'
 
 const values: ClassType[] = [
@@ -36,6 +36,12 @@ const values: ClassType[] = [
 ]
 
 export default function Turmas() {
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+  })
+
   const [turmas, setTurmas] = useState<ClassType[]>([])
   useEffect(() => {
     getAllClassInfo()
