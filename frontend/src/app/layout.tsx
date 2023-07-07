@@ -1,9 +1,11 @@
 import clsx from 'clsx'
 import './globals.css'
+import Header from './components/Header'
 
 export const metadata = {
   title: 'SIGAA 2',
-  description: 'Trabalho da disciplina Banco de Dados da Universidade de Brasília 2023.1',
+  description:
+    'Trabalho da disciplina Banco de Dados da Universidade de Brasília 2023.1',
 }
 
 export default function RootLayout({
@@ -13,7 +15,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={clsx("flex flex-col h-screen justify-center items-center m-auto")}>{children}</body>
+      <body className={clsx('overflow-hidden')}>
+        <Header />
+
+        <main
+          className={clsx(
+            'flex flex-col h-screen justify-center items-center'
+          )}
+        >
+          {children}
+        </main>
+      </body>
     </html>
   )
 }
