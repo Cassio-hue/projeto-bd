@@ -6,7 +6,9 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../components/Button'
 import { signUp } from '../api/api'
 import { StudentType } from '../utils/types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import profileNoPic from '../utils/images/profile_no_pic.jpg'
+import Image from 'next/image'
 
 export default function Cadastrar() {
   useEffect(() => {
@@ -25,6 +27,14 @@ export default function Cadastrar() {
   const methods = useForm<StudentType>({
     defaultValues: userFormDefaultValues,
   })
+
+  const [selectedFile, setSelectedFile] = useState(null)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0]
+    setSelectedFile(file)
+  }
 
   const onSubmit: SubmitHandler<StudentType> = async (data) => {
     const res = await signUp(data)
@@ -45,6 +55,26 @@ export default function Cadastrar() {
         onSubmit={methods.handleSubmit(onSubmit)}
         className={clsx('flex flex-col gap-8 w-96')}
       >
+        <div className={clsx('flex flex-col justify-center items-center')}>
+          <Image
+            priority={true}
+            className={clsx('rounded-full border border-orange-950')}
+            src={
+              selectedFile ? URL.createObjectURL(selectedFile) : profileNoPic
+            }
+            alt="Uploaded File"
+            width={200}
+            height={200}
+          />
+          {selectedFile ? (
+            ''
+          ) : (
+            <span className={clsx('underline text-yellow-400')}>
+              Selecione uma foto de perfil
+            </span>
+          )}
+        </div>
+        <input type="file" onChange={handleFileChange} />
         <Input name="student_id" type="text" label={'Matrícula'} />
         <Input name="name" type="text" label={'Nome'} />
         <Input name="email" type="email" label={'E-mail'} />
