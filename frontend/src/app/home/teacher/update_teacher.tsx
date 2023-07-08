@@ -7,7 +7,7 @@ import { Button } from '../../components/Button'
 import { Autocomplete, DataAutocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { updateTeacher, getAllDepartments, getAllTeachers } from '../../api/api'
-import { UpdateTeacherType } from '../../utils/types'
+import { TeacherType } from '../../utils/types'
 
 interface Department {
   id: number
@@ -25,7 +25,7 @@ export interface Teacher {
 }
 
 export function UpdateTeacher() {
-  const userFormDefaultValues: UpdateTeacherType = {
+  const userFormDefaultValues: TeacherType = {
     id: 0,
     name: '',
     email: '',
@@ -33,7 +33,7 @@ export function UpdateTeacher() {
     department_id: 0,
   }
 
-  const methods = useForm<UpdateTeacherType>({
+  const methods = useForm<TeacherType>({
     defaultValues: userFormDefaultValues,
   })
 
@@ -65,7 +65,9 @@ export function UpdateTeacher() {
   }, [])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSelectTeacher: any = (selectedTeacher: DataAutocomplete | null) => {
+  const handleSelectTeacher: any = (
+    selectedTeacher: DataAutocomplete | null
+  ) => {
     if (selectedTeacher) {
       const teacher = saveTeachersData.find(
         (item: Teacher) => item.id === selectedTeacher.id
@@ -84,7 +86,7 @@ export function UpdateTeacher() {
     }
   }
 
-  const onSubmit: SubmitHandler<UpdateTeacherType> = async (data) => {
+  const onSubmit: SubmitHandler<TeacherType> = async (data) => {
     try {
       await updateTeacher(data)
       alert('Professor atualizado com sucesso!')

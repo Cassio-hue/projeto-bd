@@ -3,18 +3,34 @@ export type SignInType = {
   password: string
 }
 
-export type CreateTeacherType = {
-  teacherID: string
-  name: string
-  email: string
-  password: string
-  department_id: number
+export type TeacherType = {
+  id?: number
+  name?: string
+  department_id?: number
 }
 
-export type UpdateTeacherType = {
-  id: number
-  name: string
-  email: string
-  password: string
-  department_id: number
+export type DisciplineType = {
+  id?: number
+  code?: number
+  discipline_name?: string
+  department_id?: number
+  teacher_id?: number
+}
+
+export type ClassType = {
+  id?: number
+  turma?: number
+  period?: string
+  schedule?: string
+  local?: string
+  discipline_id?: number
+  teacher_id?: number
+}
+
+export type StudentType = {
+  student_id?: string
+  name?: string
+  email?: string
+  password?: string
+  is_admin?: boolean
 }

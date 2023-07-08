@@ -7,7 +7,7 @@ import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { createTeacher, getAllDepartments } from '../../api/api'
-import { CreateTeacherType } from '../../utils/types'
+import { TeacherType } from '../../utils/types'
 
 interface Department {
   id: number
@@ -16,7 +16,7 @@ interface Department {
 }
 
 export function CreateTeacher() {
-  const userFormDefaultValues: CreateTeacherType = {
+  const userFormDefaultValues: TeacherType = {
     teacherID: '',
     name: '',
     email: '',
@@ -24,7 +24,7 @@ export function CreateTeacher() {
     department_id: 0,
   }
 
-  const methods = useForm<CreateTeacherType>({
+  const methods = useForm<TeacherType>({
     defaultValues: userFormDefaultValues,
   })
 
@@ -42,7 +42,7 @@ export function CreateTeacher() {
       .catch(() => alert('Erro ao listar departamentos'))
   }, [])
 
-  const onSubmit: SubmitHandler<CreateTeacherType> = async (data) => {
+  const onSubmit: SubmitHandler<TeacherType> = async (data) => {
     try {
       await createTeacher(data)
       alert('Professor criado com sucesso!')

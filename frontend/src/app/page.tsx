@@ -5,27 +5,23 @@ import { Input } from './components/Input'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from './components/Button'
 import { isAuthenticated, signIn } from './api/api'
-
-interface DataType {
-  email: string
-  password: string
-}
+import { SignInType } from './utils/types'
 
 export default function Login() {
   // Limpa o token do localstorage
   localStorage.clear()
 
-  const userFormDefaultValues: DataType = {
+  const userFormDefaultValues: SignInType = {
     email: '',
     password: '',
   }
 
-  const methods = useForm<DataType>({
+  const methods = useForm<SignInType>({
     defaultValues: userFormDefaultValues,
   })
 
-  const onSubmit: SubmitHandler<DataType> = async (data) => {
-    const token = await await signIn(data).catch(() => {
+  const onSubmit: SubmitHandler<SignInType> = async (data) => {
+    const token = await signIn(data).catch(() => {
       alert('Erro ao realizar autenticação')
     })
 
@@ -37,7 +33,7 @@ export default function Login() {
         alert('Login realizado com sucesso')
         window.location.href = '/home'
       }
-    }, 2000)
+    }, 500)
   }
 
   return (

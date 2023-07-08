@@ -1,8 +1,4 @@
-import {
-  CreateTeacherType,
-  SignInType,
-  UpdateTeacherType,
-} from '../utils/types'
+import { TeacherType, SignInType, StudentType } from '../utils/types'
 
 export const isAuthenticated = () => {
   const token = localStorage.getItem('token')
@@ -42,6 +38,25 @@ export const signIn = (data: SignInType) => {
     })
 }
 
+export const signUp = (data: StudentType) => {
+  return fetch('http://localhost:3333/students', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (response.status !== 201) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .catch((err) => {
+      throw err
+    })
+}
+
 export const getAllClassInfo = () => {
   return fetch('http://localhost:3333/classes/complete-info', {
     method: 'GET',
@@ -49,7 +64,12 @@ export const getAllClassInfo = () => {
       Authorization: `Bearer ${getToken()}`,
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
     .then((json) => json)
     .catch((err) => {
       throw err
@@ -58,7 +78,12 @@ export const getAllClassInfo = () => {
 
 export const getAllDepartments = () => {
   return fetch('http://localhost:3333/departments')
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
     .then((json) => json)
     .catch((err) => {
       throw err
@@ -67,14 +92,19 @@ export const getAllDepartments = () => {
 
 export const getAllTeachers = () => {
   return fetch('http://localhost:3333/teachers')
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
     .then((json) => json)
     .catch((err) => {
       throw err
     })
 }
 
-export const createTeacher = (teacherData: CreateTeacherType) => {
+export const createTeacher = (teacherData: TeacherType) => {
   return fetch('http://localhost:3333/teachers', {
     method: 'POST',
     headers: {
@@ -83,7 +113,7 @@ export const createTeacher = (teacherData: CreateTeacherType) => {
     body: JSON.stringify(teacherData),
   })
     .then((response) => {
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         throw new Error('Erro de solicitação: ' + response.status)
       }
       return response
@@ -94,7 +124,7 @@ export const createTeacher = (teacherData: CreateTeacherType) => {
     })
 }
 
-export const updateTeacher = (teacherData: UpdateTeacherType) => {
+export const updateTeacher = (teacherData: TeacherType) => {
   const { id, ...updateTeacherData } = teacherData
   return fetch(`http://localhost:3333/teachers/${id}`, {
     method: 'PATCH',
