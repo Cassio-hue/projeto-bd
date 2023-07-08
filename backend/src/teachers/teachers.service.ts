@@ -34,7 +34,7 @@ export class TeachersService {
   async findAll() {
     return await this.CRUD.findAll()
       .catch(() => {
-        throw Error('Erro ao listar todos os professores');
+        throw new BadRequestException(`Erro ao tentar listar professores`);
       })
       .then((res) => res);
   }
@@ -42,7 +42,9 @@ export class TeachersService {
   async findOne(id: number) {
     return await this.CRUD.findOne({ id })
       .catch(() => {
-        throw Error(`Erro ao tentar encontrar professor pelo id = ${id}`);
+        throw new BadRequestException(
+          `Erro ao tentar encontrar professor pelo id = ${id}`,
+        );
       })
       .then((res) => {
         if (res.length == 0)
@@ -64,8 +66,10 @@ export class TeachersService {
 
   async remove(id: number) {
     await this.checkTeacherId(id);
-    await this.CRUD.delete(id).catch(() => {
-      throw Error('Erro ao tentar remover professor');
+    await this.CRUD.delete(id).catch((err) => {
+      if (err.code == '23503')
+        throw new UnprocessableEntityException(err.detail);
+      else throw new BadRequestException(`Erro ao tentar remover professor.`);
     });
     return 'Professor removido com sucesso';
   }
