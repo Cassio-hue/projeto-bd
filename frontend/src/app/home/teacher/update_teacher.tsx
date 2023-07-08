@@ -73,7 +73,6 @@ export function UpdateTeacher() {
       await updateTeacher(data)
       alert('Professor atualizado com sucesso!')
     } catch (err) {
-      console.log(err)
       alert('Ocorreu um erro ao editar o professor')
     }
   }
@@ -97,7 +96,7 @@ export function UpdateTeacher() {
           values={departmentsData}
           label={'Departamento'}
         />
-        <Button type="submit">Editar professor</Button>
+        <Button style={'UPDATE'} type="submit">Editar professor</Button>
       </form>
     </FormProvider>
   )

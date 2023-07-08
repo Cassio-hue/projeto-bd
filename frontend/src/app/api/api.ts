@@ -1,5 +1,8 @@
 import { TeacherType, SignInType, StudentType } from '../utils/types'
 
+//
+//  Módulo de Autenticação
+//
 export const isAuthenticated = () => {
   const token = localStorage.getItem('token')
   if (token) {
@@ -57,6 +60,9 @@ export const signUp = (data: StudentType) => {
     })
 }
 
+//
+// Módulo de turmas
+//
 export const getAllClassInfo = () => {
   return fetch('http://localhost:3333/classes/complete-info', {
     method: 'GET',
@@ -76,8 +82,16 @@ export const getAllClassInfo = () => {
     })
 }
 
+//
+// Módulo de departamentos
+//
 export const getAllDepartments = () => {
-  return fetch('http://localhost:3333/departments')
+  return fetch('http://localhost:3333/departments', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
     .then((response) => {
       if (response.status !== 200) {
         throw new Error('Erro de solicitação: ' + response.status)
@@ -90,8 +104,16 @@ export const getAllDepartments = () => {
     })
 }
 
+//
+// Modulo de Professores
+//
 export const getAllTeachers = () => {
-  return fetch('http://localhost:3333/teachers')
+  return fetch('http://localhost:3333/teachers', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
     .then((response) => {
       if (response.status !== 200) {
         throw new Error('Erro de solicitação: ' + response.status)
@@ -109,6 +131,7 @@ export const createTeacher = (teacherData: TeacherType) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
     },
     body: JSON.stringify(teacherData),
   })
@@ -130,8 +153,28 @@ export const updateTeacher = (teacherData: TeacherType) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
     },
     body: JSON.stringify(updateTeacherData),
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
+export const deleteTeacher = (data: TeacherType) => {
+  return fetch(`http://localhost:3333/teachers/${data.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
   })
     .then((response) => {
       if (response.status !== 200) {

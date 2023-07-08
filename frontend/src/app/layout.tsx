@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={clsx('overflow-hidden')}>
+      <body>
         <Header />
 
         <main

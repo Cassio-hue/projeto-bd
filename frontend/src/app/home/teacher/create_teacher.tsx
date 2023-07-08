@@ -56,7 +56,7 @@ export function CreateTeacher() {
           values={departmentsData}
           label={'Departamento'}
         />
-        <Button type="submit">Criar professor</Button>
+        <Button style={'CREATE'} type="submit">Criar professor</Button>
       </form>
     </FormProvider>
   )

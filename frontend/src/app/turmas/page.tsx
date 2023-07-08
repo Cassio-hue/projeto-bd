@@ -51,7 +51,7 @@ export default function Turmas() {
       .catch(() => alert('Erro ao listar turmas do sistema'))
   }, [])
   return (
-    <div className={clsx('grid gap-4 pt-80 pb-4')}>
+    <div className={clsx('grid gap-4 pb-4 mt-10')}>
       <CardClass values={turmas ? turmas : values} />
     </div>
   )
