@@ -6,10 +6,13 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../components/Button'
 import { signUp } from '../api/api'
 import { StudentType } from '../utils/types'
+import { useEffect } from 'react'
 
 export default function Cadastrar() {
-  // Limpa o token do localstorage
-  localStorage.clear()
+  useEffect(() => {
+    // Limpa o token do localstorage
+    localStorage.clear()
+  })
 
   const userFormDefaultValues: StudentType = {
     student_id: '',

@@ -6,10 +6,13 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from './components/Button'
 import { isAuthenticated, signIn } from './api/api'
 import { SignInType } from './utils/types'
+import { useEffect } from 'react'
 
 export default function Login() {
-  // Limpa o token do localstorage
-  localStorage.clear()
+  useEffect(() => {
+    // Limpa o token do localstorage
+    localStorage.clear()
+  })
 
   const userFormDefaultValues: SignInType = {
     email: '',
