@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
   );
 
   CREATE TABLE IF NOT EXISTS department (
-    department_code INT PRIMARY KEY UNIQUE NOT NULL,
+    id INT PRIMARY KEY UNIQUE NOT NULL,
     department_name VARCHAR(100) NOT NULL
   );
   
@@ -22,7 +22,7 @@ export async function up(knex: Knex): Promise<void> {
     department_code INT NOT NULL,
     CONSTRAINT fk_department_code
       FOREIGN KEY (department_code)
-      REFERENCES department (department_code)
+      REFERENCES department (id)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
   );
@@ -34,7 +34,7 @@ export async function up(knex: Knex): Promise<void> {
     department_code INT NOT NULL,
     CONSTRAINT fk_department_code
       FOREIGN KEY (department_code)
-      REFERENCES department (department_code)
+      REFERENCES department (id)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
   );  
