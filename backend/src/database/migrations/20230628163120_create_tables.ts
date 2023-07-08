@@ -43,12 +43,11 @@ export async function up(knex: Knex): Promise<void> {
     id SERIAL PRIMARY KEY,
     score INT NOT NULL,
     comment VARCHAR(250),
-    reports INT,
     student_id INT,
     CONSTRAINT fk_student_id
       FOREIGN KEY (student_id)
       REFERENCES student (id)
-      ON DELETE NO ACTION
+      ON DELETE CASCADE
       ON UPDATE NO ACTION
   );
   
@@ -68,8 +67,22 @@ export async function up(knex: Knex): Promise<void> {
     CONSTRAINT fk_teacher_id
       FOREIGN KEY (teacher_id)
       REFERENCES teacher (id)
-      ON DELETE CASCADE
+      ON DELETE NO ACTION
       ON UPDATE NO ACTION
+  );
+
+  CREATE TABLE IF NOT EXISTS report (
+    id SERIAL PRIMARY KEY UNIQUE,
+    student_id INT,
+    CONSTRAINT fk_student_id
+      FOREIGN KEY (student_id)
+      REFERENCES student (id)
+      ON DELETE CASCADE,
+    rating_id INT,
+    CONSTRAINT fk_rating_id
+      FOREIGN KEY (rating_id)
+      REFERENCES rating (id)
+      ON DELETE CASCADE
   );
   `);
 }
