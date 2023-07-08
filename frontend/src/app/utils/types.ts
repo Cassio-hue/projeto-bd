@@ -3,10 +3,15 @@ export type SignInType = {
   password: string
 }
 
+export type DepartmentType = {
+  department_code?: number
+  department_name?: string
+}
+
 export type TeacherType = {
   id?: number
   name?: string
-  department_id?: number
+  department_code?: number
 }
 
 export type DisciplineType = {

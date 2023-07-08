@@ -7,21 +7,12 @@ import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { createTeacher, getAllDepartments } from '../../api/api'
-import { TeacherType } from '../../utils/types'
-
-interface Department {
-  id: number
-  code: number
-  departmentname: string
-}
+import { DepartmentType, TeacherType } from '../../utils/types'
 
 export function CreateTeacher() {
   const userFormDefaultValues: TeacherType = {
-    teacherID: '',
     name: '',
-    email: '',
-    password: '',
-    department_id: 0,
+    department_code: 0,
   }
 
   const methods = useForm<TeacherType>({
@@ -33,9 +24,9 @@ export function CreateTeacher() {
   useEffect(() => {
     getAllDepartments()
       .then((data) => {
-        const formattedData = data.map((item: Department) => ({
-          id: item.id,
-          label: item.departmentname,
+        const formattedData = data.map((item: DepartmentType) => ({
+          id: item.department_code,
+          label: item.department_name,
         }))
         setDepartments(formattedData)
       })
@@ -59,10 +50,7 @@ export function CreateTeacher() {
         className={clsx('flex items-center flex-col gap-8 w-full')}
       >
         <h1 className="text-lg">Cadastrar professor</h1>
-        <Input name="teacherID" type="text" label={'Matrícula'} />
         <Input name="name" type="text" label={'Nome'} />
-        <Input name="email" type="email" label={'E-mail'} />
-        <Input name="password" type="password" label={'Senha'} />
         <Autocomplete
           name="department_id"
           values={departmentsData}

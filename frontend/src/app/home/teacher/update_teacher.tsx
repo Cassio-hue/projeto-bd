@@ -7,30 +7,13 @@ import { Button } from '../../components/Button'
 import { Autocomplete, DataAutocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { updateTeacher, getAllDepartments, getAllTeachers } from '../../api/api'
-import { TeacherType } from '../../utils/types'
+import { DepartmentType, TeacherType } from '../../utils/types'
 
-interface Department {
-  id: number
-  code: number
-  departmentname: string
-}
-
-export interface Teacher {
-  id: number
-  teacherID: string
-  name: string
-  email: string
-  password: string
-  department_id: number
-}
 
 export function UpdateTeacher() {
   const userFormDefaultValues: TeacherType = {
-    id: 0,
     name: '',
-    email: '',
-    password: '',
-    department_id: 0,
+    department_code: 0,
   }
 
   const methods = useForm<TeacherType>({
@@ -39,14 +22,14 @@ export function UpdateTeacher() {
 
   const [departmentsData, setDepartments] = useState([])
   const [teachersData, setTeachers] = useState([])
-  const [saveTeachersData, setSaveTeachers] = useState<Teacher[]>([])
+  const [saveTeachersData, setSaveTeachers] = useState<TeacherType[]>([])
 
   useEffect(() => {
     getAllDepartments()
       .then((data) => {
-        const formattedData = data.map((item: Department) => ({
-          id: item.id,
-          label: item.departmentname,
+        const formattedData = data.map((item: DepartmentType) => ({
+          id: item.department_code,
+          label: item.department_name,
         }))
         setDepartments(formattedData)
       })
@@ -54,7 +37,7 @@ export function UpdateTeacher() {
 
     getAllTeachers()
       .then((data) => {
-        const formattedData = data.map((item: Teacher) => ({
+        const formattedData = data.map((item: TeacherType) => ({
           id: item.id,
           label: item.name,
         }))
@@ -64,13 +47,14 @@ export function UpdateTeacher() {
       .catch(() => alert('Erro ao listar professores'))
   }, [])
 
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSelectTeacher: any = (
     selectedTeacher: DataAutocomplete | null
   ) => {
     if (selectedTeacher) {
       const teacher = saveTeachersData.find(
-        (item: Teacher) => item.id === selectedTeacher.id
+        (item: TeacherType) => item.id === selectedTeacher.id
       )
 
       if (teacher) {
@@ -78,9 +62,7 @@ export function UpdateTeacher() {
           ...userFormDefaultValues,
           id: selectedTeacher.id,
           name: teacher.name,
-          email: teacher.email,
-          password: teacher.password,
-          department_id: teacher.department_id,
+          department_code: teacher.department_code,
         })
       }
     }
@@ -110,8 +92,6 @@ export function UpdateTeacher() {
           onSelect={handleSelectTeacher}
         />
         <Input name="name" type="text" label={'Nome'} />
-        <Input name="email" type="email" label={'E-mail'} />
-        <Input name="password" type="password" label={'Senha'} />
         <Autocomplete
           name="department_id"
           values={departmentsData}
