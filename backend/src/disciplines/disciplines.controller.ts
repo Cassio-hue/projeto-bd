@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DisciplinesService } from './disciplines.service';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
@@ -19,16 +27,19 @@ export class DisciplinesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.disciplinesService.findOne(+id);
+    return this.disciplinesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDisciplineDto: UpdateDisciplineDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDisciplineDto: UpdateDisciplineDto,
+  ) {
     return this.disciplinesService.update(+id, updateDisciplineDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.disciplinesService.remove(+id);
+    return this.disciplinesService.remove(id);
   }
 }

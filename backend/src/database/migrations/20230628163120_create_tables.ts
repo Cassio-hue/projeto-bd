@@ -29,8 +29,7 @@ export async function up(knex: Knex): Promise<void> {
   );
   
   CREATE TABLE IF NOT EXISTS discipline (
-    id SERIAL PRIMARY KEY UNIQUE,
-    code VARCHAR(8) NOT NULL UNIQUE,
+    id VARCHAR(8) NOT NULL UNIQUE PRIMARY KEY,
     discipline_name VARCHAR(100) NOT NULL,
     department_code INT NOT NULL,
     CONSTRAINT fk_department_code
@@ -58,7 +57,7 @@ export async function up(knex: Knex): Promise<void> {
     period VARCHAR(45) NOT NULL,
     schedule VARCHAR(45) NOT NULL,
     local VARCHAR(45) NOT NULL,
-    discipline_id INT,
+    discipline_id VARCHAR(8),
     CONSTRAINT fk_discipline_id
       FOREIGN KEY (discipline_id)
       REFERENCES discipline (id)

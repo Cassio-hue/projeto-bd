@@ -25,7 +25,7 @@ export class DisciplinesService {
       .then((res) => res);
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.CRUD.findOne({ id })
       .catch()
       .then((res) => {
@@ -39,7 +39,7 @@ export class DisciplinesService {
     return `This action updates a #${id} discipline`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} discipline`;
   }
 }
