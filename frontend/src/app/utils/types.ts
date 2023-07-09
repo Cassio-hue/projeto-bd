@@ -32,10 +32,20 @@ export type ClassType = {
   teacher_id?: number
 }
 
+export type StudentSignUpType = {
+  student_id: string | Blob
+  name: string
+  email: string
+  password: string
+  is_admin: boolean
+  image: File | null | undefined
+}
+
 export type StudentType = {
-  student_id?: string
+  student_id?: string | Blob
   name?: string
   email?: string
   password?: string
   is_admin?: boolean
+  image?: File | null | undefined
 }

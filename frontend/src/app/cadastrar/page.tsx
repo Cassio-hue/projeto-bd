@@ -5,7 +5,7 @@ import { Input } from '../components/Input'
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../components/Button'
 import { signUp } from '../api/api'
-import { StudentType } from '../utils/types'
+import { StudentSignUpType } from '../utils/types'
 import { useEffect, useState } from 'react'
 import profileNoPic from '../utils/images/profile_no_pic.jpg'
 import Image from 'next/image'
@@ -16,15 +16,16 @@ export default function Cadastrar() {
     localStorage.clear()
   })
 
-  const userFormDefaultValues: StudentType = {
+  const userFormDefaultValues: StudentSignUpType = {
     student_id: '',
     name: '',
     email: '',
     password: '',
     is_admin: false,
+    image: null,
   }
 
-  const methods = useForm<StudentType>({
+  const methods = useForm<StudentSignUpType>({
     defaultValues: userFormDefaultValues,
   })
 
@@ -36,7 +37,12 @@ export default function Cadastrar() {
     setSelectedFile(file)
   }
 
-  const onSubmit: SubmitHandler<StudentType> = async (data) => {
+  const onSubmit: SubmitHandler<StudentSignUpType> = async (data) => {
+    // Se um arquivo foi selecionado, adicione-o ao objeto de dados
+    if (selectedFile) {
+      data.image = selectedFile
+    }
+
     const res = await signUp(data)
       .catch(() => {
         alert('Erro ao realizar cadastro do usuário')

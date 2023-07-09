@@ -10,8 +10,12 @@ export class CRUD {
     const columns = Object.keys(data)
       .map((value) => value)
       .join(',');
+
     const values = Object.values(data)
-      .map((value) => `'${value}'`)
+      .map((value) => {
+        if (value instanceof Buffer) return `E'\\\\x${value.toString('hex')}'`;
+        else return `'${value}'`;
+      })
       .join(',');
 
     const query = `INSERT INTO ${this.table_name} (${columns}) VALUES (${values});`;

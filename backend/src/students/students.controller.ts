@@ -7,18 +7,27 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
   @Post()
-  create(@Body() createStudentDto: CreateStudentDto) {
+  @UseInterceptors(FileInterceptor('image'))
+  create(@Body() createStudentDto: CreateStudentDto, @UploadedFile() picture) {
+    const boolean = createStudentDto.is_admin;
+    if (boolean == 'true') createStudentDto.is_admin = true;
+    else createStudentDto.is_admin = false;
+
+    createStudentDto.picture = picture.buffer;
     return this.studentsService.create(createStudentDto);
   }
 

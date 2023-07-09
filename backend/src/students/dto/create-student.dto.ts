@@ -27,6 +27,8 @@ export class CreateStudentDto {
   password: string;
 
   @IsNotEmpty()
-  @IsBoolean()
-  is_admin: boolean;
+  @IsString()
+  is_admin: string | boolean;
+
+  picture: Buffer;
 }

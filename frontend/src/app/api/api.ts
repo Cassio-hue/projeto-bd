@@ -1,4 +1,4 @@
-import { TeacherType, SignInType, StudentType } from '../utils/types'
+import { TeacherType, SignInType, StudentSignUpType } from '../utils/types'
 
 //
 //  Módulo de Autenticação
@@ -41,13 +41,23 @@ export const signIn = (data: SignInType) => {
     })
 }
 
-export const signUp = (data: StudentType) => {
+export const signUp = (data: StudentSignUpType) => {
+
+  const formData = new FormData()
+  formData.append('student_id', data.student_id)
+  formData.append('name', data.name)
+  formData.append('email', data.email)
+  formData.append('password', data.password)
+  formData.append('is_admin', data.is_admin.toString())
+
+  if (data.image) {
+    const blob = new Blob([data.image], { type: 'application/octet-stream' })
+    formData.append('image', blob, 'image.jpg')
+  }
+
   return fetch('http://localhost:3333/students', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
+    body: formData,
   })
     .then((response) => {
       if (response.status !== 201) {
