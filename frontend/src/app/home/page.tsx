@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getStudentData, isAuthenticated } from '../api/api'
 import Link from 'next/link'
 import { Button } from '../components/Button'
 
 export default function Home() {
+  const [admin, setAdmin] = useState(false)
+
   useEffect(() => {
     if (!isAuthenticated()) {
       window.location.href = '/'
@@ -19,9 +21,13 @@ export default function Home() {
     }
   })
 
-  const admin = localStorage.getItem('admin')
+  useEffect(() => {
+    const admin = localStorage.getItem('admin')
+    if (admin === 'true') setAdmin(true)
+    setAdmin(false)
+  }, [])
 
-  if (admin === 'true') {
+  if (admin) {
     return (
       <div className="flex flex-col gap-5 w-44">
         <Link href={'home/teacher'}>
@@ -44,5 +50,4 @@ export default function Home() {
       </div>
     )
   }
-  
 }

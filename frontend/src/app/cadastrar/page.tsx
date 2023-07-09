@@ -51,7 +51,7 @@ export default function Cadastrar() {
 
     if (res?.status === 201) {
       alert('Cadastro realizado com sucesso')
-      window.location.href = '/'
+      // window.location.href = '/'
     }
   }
 

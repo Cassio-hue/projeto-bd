@@ -96,7 +96,6 @@ export default function Perfil() {
           )}
         </div>
         <input type="file" onChange={handleFileChange} />
-        <Input name="student_id" type="text" label={'Matrícula'} />
         <Input name="name" type="text" label={'Nome'} />
         <Input name="email" type="email" label={'E-mail'} />
         <Input name="password" type="password" label={'Senha'} />

@@ -2,7 +2,13 @@ import { Knex } from 'knex';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
-  await knex.raw('DELETE FROM department CASCADE;');
+  await knex.raw(`
+  DELETE FROM student CASCADE;
+  DELETE FROM class CASCADE;
+  DELETE FROM discipline CASCADE;
+  DELETE FROM teacher CASCADE;
+  DELETE FROM department CASCADE;
+  `);
 
   // Inserts seed entries
   await knex.raw(`

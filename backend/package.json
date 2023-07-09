@@ -32,6 +32,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security",
     "knex": "^2.4.2",
     "nestjs-knex": "^2.0.0",
     "passport": "^0.6.0",
