@@ -41,11 +41,16 @@ export type StudentSignUpType = {
   image: File | null | undefined
 }
 
+interface Picture {
+  type: string;
+  data: number[];
+}
+
 export type StudentType = {
   student_id?: string | Blob
   name?: string
   email?: string
   password?: string
   is_admin?: boolean
-  image?: File | null | undefined
+  picture?: Picture | null | undefined
 }

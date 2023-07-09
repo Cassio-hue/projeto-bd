@@ -13,7 +13,8 @@ export class CRUD {
 
     const values = Object.values(data)
       .map((value) => {
-        if (value instanceof Buffer) return `E'\\\\x${value.toString('hex')}'`;
+        if (value instanceof Buffer)
+          return `decode('${value.toString('hex')}', 'hex')`;
         else return `'${value}'`;
       })
       .join(',');
