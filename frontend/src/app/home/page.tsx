@@ -17,15 +17,12 @@ export default function Home() {
     if (email) {
       getStudentData(email).then((data) => {
         localStorage.setItem('admin', data.is_admin)
+        if (data.is_admin === true) {
+          setAdmin(true)
+        }
       })
     }
   })
-
-  useEffect(() => {
-    const admin = localStorage.getItem('admin')
-    if (admin === 'true') setAdmin(true)
-    setAdmin(false)
-  }, [])
 
   if (admin) {
     return (
@@ -38,6 +35,9 @@ export default function Home() {
         </Link>
         <Link href={'home/department'}>
           <Button>Departamento</Button>
+        </Link>
+        <Link href={'home/class'}>
+          <Button>Turmas</Button>
         </Link>
       </div>
     )

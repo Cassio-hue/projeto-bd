@@ -38,7 +38,6 @@ export default function Cadastrar() {
   }
 
   const onSubmit: SubmitHandler<StudentSignUpType> = async (data) => {
-    // Se um arquivo foi selecionado, adicione-o ao objeto de dados
     if (selectedFile) {
       data.image = selectedFile
     }
@@ -51,7 +50,7 @@ export default function Cadastrar() {
 
     if (res?.status === 201) {
       alert('Cadastro realizado com sucesso')
-      // window.location.href = '/'
+      window.location.href = '/'
     }
   }
 

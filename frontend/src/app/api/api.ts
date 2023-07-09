@@ -21,7 +21,6 @@ export const getToken = () => {
 }
 
 export const signIn = (data: SignInType) => {
-  console.log(data)
   return fetch('http://localhost:3333/auth/login', {
     method: 'POST',
     headers: {
