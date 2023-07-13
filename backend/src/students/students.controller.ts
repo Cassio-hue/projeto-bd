@@ -34,7 +34,6 @@ export class StudentsController {
 
   @Post('rating')
   createRating(@Body() createRatingDto: CreateRatingDto) {
-    console.log('cheguei');
     return this.studentsService.createRating(createRatingDto);
   }
 

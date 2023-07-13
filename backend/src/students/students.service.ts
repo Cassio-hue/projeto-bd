@@ -23,9 +23,13 @@ export class StudentsService {
     const { student_email, class_id, comment, score } = createRatingDto;
     const student_id = await this.getStudentId(student_email);
     // create_rating(student_id, class_id, score, comment)
-    await this.knex.raw(
-      `CALL create_rating(${student_id}, ${class_id}, ${score}, '${comment}')`,
-    );
+    await this.knex
+      .raw(
+        `CALL create_rating(${student_id}, ${class_id}, ${score}, '${comment}')`,
+      )
+      .catch((err) => {
+        throw new BadRequestException(`Erro ao tentar criar avaliação ${err}`);
+      });
     return 'Avaliação criada com sucesso';
   }
 
