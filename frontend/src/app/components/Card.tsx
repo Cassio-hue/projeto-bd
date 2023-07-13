@@ -52,6 +52,7 @@ const RatingComponent = ({ values }: RatingComponentProps) => {
       .catch(() => alert('Erro ao listar avaliações'))
   }, [])
 
+  
   const onSubmit: SubmitHandler<RatingType> = async (data) => {
     const res = await createRating(data)
       .catch(() => {

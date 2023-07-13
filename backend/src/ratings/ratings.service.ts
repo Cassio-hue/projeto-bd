@@ -46,6 +46,17 @@ export class RatingsService {
       .then((res) => res);
   }
 
+  async getRatingsWithReports() {
+    return await this.knex
+      .raw('SELECT * FROM vw_ratings_with_report WHERE report_count > 0;')
+      .catch((err) => {
+        throw new BadRequestException(
+          `Erro ao tentar buscar avaliações ${err}`,
+        );
+      })
+      .then((res) => res.rows);
+  }
+
   async findAll() {
     return await this.CRUD.findAll()
       .catch(() => {

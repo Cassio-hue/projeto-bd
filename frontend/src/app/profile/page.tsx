@@ -34,7 +34,7 @@ export default function Perfil() {
         })
         .catch(() => alert('Erro ao listar departamentos'))
     }
-  }, [])
+  })
 
   const userFormDefaultValues: StudentType = {
     name: '',

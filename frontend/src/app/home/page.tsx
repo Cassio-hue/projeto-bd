@@ -39,6 +39,9 @@ export default function Home() {
         <Link href={'/class'}>
           <Button>Turmas</Button>
         </Link>
+        <Link href={'home/reports'}>
+          <Button>Denúncias</Button>
+        </Link>
       </div>
     )
   } else {

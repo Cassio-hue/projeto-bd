@@ -142,7 +142,6 @@ export const getAllTeachers = () => {
 }
 
 export const createTeacher = (teacherData: TeacherType) => {
-  console.log('Olha o dado do teacher: ', teacherData)
   return fetch('http://localhost:3333/teachers', {
     method: 'POST',
     headers: {
@@ -312,12 +311,48 @@ export const getAllRatings = () => {
     })
 }
 
+export const getRatingReports = () => {
+  return fetch('http://localhost:3333/ratings/rating-reports', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
+export const deleteRating = (id: number) => {
+  return fetch(`http://localhost:3333/ratings/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .catch((err) => {
+      throw err
+    })
+}
+
 //
 // Módulo de Denúncias
 //
 
 export const makeReport = (reportData: ReportType) => {
-  console.log('QUASE FAZENDO O REPORT!', reportData)
   return fetch('http://localhost:3333/reports', {
     method: 'POST',
     headers: {
@@ -333,6 +368,24 @@ export const makeReport = (reportData: ReportType) => {
       return response
     })
     .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
+export const deleteReport = (id: number) => {
+  return fetch(`http://localhost:3333/reports/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
     .catch((err) => {
       throw err
     })

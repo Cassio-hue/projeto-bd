@@ -33,6 +33,11 @@ export class RatingsController {
     return this.ratingsService.ratingCompleteInfo();
   }
 
+  @Get('/rating-reports')
+  findAllRatingReports() {
+    return this.ratingsService.getRatingsWithReports();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ratingsService.findOne(+id);

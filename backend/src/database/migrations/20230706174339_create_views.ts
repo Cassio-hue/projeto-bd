@@ -32,7 +32,31 @@ export async function up(knex: Knex): Promise<void> {
     student S ON R.student_id = S.id
   LEFT JOIN class C ON R.class_id = C.id
   LEFT JOIN discipline D ON C.discipline_id = D.id;
-    
+
+  CREATE VIEW vw_ratings_with_report AS
+  SELECT 
+    R.id AS rating_id,
+    R.score,
+    R.comment,
+    RP.id AS report_id,
+    COUNT(RP.id)::INTEGER AS report_count,
+    S.name AS student_name,
+    T.name AS teacher_name
+  FROM 
+    rating R
+  LEFT JOIN report RP ON R.id = RP.rating_id
+  JOIN student S ON R.student_id = S.id
+  JOIN rating RT ON RP.rating_id = RT.id
+  JOIN class C ON R.class_id = C.id
+  JOIN teacher T ON C.teacher_id = T.id
+  GROUP BY 
+    R.id,
+    R.score,
+    R.comment,
+    RP.id,
+    S.name,
+    RT.comment,
+    T.name;
   `);
 }
 
