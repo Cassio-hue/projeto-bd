@@ -41,7 +41,7 @@ export class RatingsService {
   async findAll() {
     return await this.CRUD.findAll()
       .catch(() => {
-        throw Error('Erro ao buscar todass as avaliações');
+        throw Error('Erro ao buscar todas as avaliações');
       })
       .then((res) => res);
   }

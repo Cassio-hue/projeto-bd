@@ -8,5 +8,6 @@ import { ClassesModule } from '../classes/classes.module';
   imports: [StudentsModule, ClassesModule],
   controllers: [RatingsController],
   providers: [RatingsService],
+  exports: [RatingsService],
 })
 export class RatingsModule {}

@@ -74,7 +74,7 @@ export class StudentsService {
     return 'Estudante removido com sucesso';
   }
 
-  private async checkUserId(id: number) {
+  async checkUserId(id: number) {
     const user = await this.findOne({ id });
     if (user.length == 0)
       throw new NotFoundException('Id fornecido não foi encontrado');
