@@ -7,5 +7,5 @@ export class UpdateTeacherDto {
   @IsOptional()
   @IsNumber()
   @IsPositive()
-  department_id?: number;
+  department_code?: number;
 }

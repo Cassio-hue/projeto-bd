@@ -97,7 +97,7 @@ export function UpdateTeacher() {
         />
         <Input name="name" type="text" label={'Nome'} />
         <Autocomplete
-          name="department_id"
+          name="department_code"
           values={departmentsData}
           label={'Departamento'}
         />
