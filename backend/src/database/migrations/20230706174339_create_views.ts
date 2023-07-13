@@ -17,6 +17,21 @@ export async function up(knex: Knex): Promise<void> {
     discipline D ON D.id = C.discipline_id 
   LEFT JOIN 
     teacher T ON T.id = C.teacher_id;
+
+  CREATE VIEW vw_rating_details AS
+  SELECT 
+    R.id as id, 
+    R.score as score,
+    R.comment as comment, 
+    S.name as student_name,
+    D.discipline_name as discipline_name 
+  FROM 
+    rating R
+  LEFT JOIN 
+    student S ON R.student_id = S.id
+  LEFT JOIN class C ON R.class_id = C.id
+  LEFT JOIN discipline D ON C.discipline_id = D.id;
+    
   `);
 }
 

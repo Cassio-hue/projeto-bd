@@ -28,6 +28,11 @@ export class RatingsController {
     return this.ratingsService.findAll();
   }
 
+  @Get('/complete-info')
+  findAllRatingInfo() {
+    return this.ratingsService.ratingCompleteInfo();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ratingsService.findOne(+id);

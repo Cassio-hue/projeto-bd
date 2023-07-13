@@ -38,6 +38,14 @@ export class RatingsService {
     return 'Avaliação criada com sucesso';
   }
 
+  async ratingCompleteInfo() {
+    return await this.CRUD.findAll('vw_rating_details')
+      .catch(() => {
+        throw Error('Erro ao listar os dados da VIEW vw_rating_details');
+      })
+      .then((res) => res);
+  }
+
   async findAll() {
     return await this.CRUD.findAll()
       .catch(() => {
