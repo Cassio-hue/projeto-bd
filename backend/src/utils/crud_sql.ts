@@ -32,7 +32,7 @@ export class CRUD {
       )
       .join(', ');
 
-    const query = `UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id}`;
+    const query = `UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id};`;
 
     await this.knex.raw(query);
   }
@@ -46,7 +46,7 @@ export class CRUD {
       }, '')
       .slice(0, -2);
 
-    const query = `SELECT * FROM ${this.table_name} WHERE ${whereString}`;
+    const query = `SELECT * FROM ${this.table_name} WHERE ${whereString};`;
 
     return await this.knex.raw(query).then((res) => res.rows);
   }
@@ -60,7 +60,7 @@ export class CRUD {
   }
 
   async delete(id) {
-    const query = `DELETE FROM ${this.table_name} WHERE id = ${id}`;
+    const query = `DELETE FROM ${this.table_name} WHERE id = ${id};`;
 
     return await this.knex.raw(query);
   }
