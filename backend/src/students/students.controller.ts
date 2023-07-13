@@ -15,6 +15,7 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateRatingDto } from '../ratings/dto/create-rating.dto';
 
 @Controller('students')
 export class StudentsController {
@@ -29,6 +30,12 @@ export class StudentsController {
 
     createStudentDto.picture = picture.buffer;
     return this.studentsService.create(createStudentDto);
+  }
+
+  @Post('rating')
+  createRating(@Body() createRatingDto: CreateRatingDto) {
+    console.log('cheguei');
+    return this.studentsService.createRating(createRatingDto);
   }
 
   @UseGuards(AuthGuard('jwt'))

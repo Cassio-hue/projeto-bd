@@ -8,6 +8,7 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { CRUD } from '../utils/crud_sql';
 import { InjectKnex, Knex } from 'nestjs-knex';
+import { CreateRatingDto } from '../ratings/dto/create-rating.dto';
 
 @Injectable()
 export class StudentsService {
@@ -16,6 +17,16 @@ export class StudentsService {
   constructor(@InjectKnex() private readonly knex: Knex) {
     this.knex = knex;
     this.CRUD = new CRUD(this.knex, this.table_name);
+  }
+
+  async createRating(createRatingDto: CreateRatingDto) {
+    const { student_email, class_id, comment, score } = createRatingDto;
+    const student_id = await this.getStudentId(student_email);
+    // create_rating(student_id, class_id, score, comment)
+    await this.knex.raw(
+      `CALL create_rating(${student_id}, ${class_id}, ${score}, '${comment}')`,
+    );
+    return 'Avaliação criada com sucesso';
   }
 
   async create(createStudentDto: CreateStudentDto) {
@@ -67,5 +78,15 @@ export class StudentsService {
     const user = await this.findOne({ id });
     if (user.length == 0)
       throw new NotFoundException('Id fornecido não foi encontrado');
+  }
+
+  async getStudentId(email: string) {
+    const student = await this.findOne({ email });
+    if (student.length == 0)
+      throw new NotFoundException(
+        'Id do estudante fornecido não foi encontrado',
+      );
+
+    return student.id;
   }
 }
