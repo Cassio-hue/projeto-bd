@@ -1,4 +1,5 @@
 import {
+  IsBooleanString,
   IsEmail,
   IsNotEmpty,
   IsNumberString,
@@ -26,7 +27,7 @@ export class CreateStudentDto {
   password: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsBooleanString()
   is_admin: string | boolean;
 
   picture: Buffer;
