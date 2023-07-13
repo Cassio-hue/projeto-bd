@@ -1,13 +1,24 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../components/Button'
 import { Modal } from '../../components/Modal'
 import { CreateTeacher } from './create_teacher'
 import clsx from 'clsx'
 import { UpdateTeacher } from './update_teacher'
 import { DeleteTeacher } from './delete_teacher'
+import { isAuthenticated } from '../../api/api'
 
 export default function CRUDTeacher() {
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+    if(localStorage.getItem('admin') === 'false'){
+      window.location.href = '/home'
+    }
+  })
+
   const [openCreate, setCreateOpen] = useState(false)
   const [openUpdate, setUpdateOpen] = useState(false)
   const [openDelete, setDeleteOpen] = useState(false)

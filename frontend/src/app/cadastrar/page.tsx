@@ -58,7 +58,7 @@ export default function Cadastrar() {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex flex-col gap-8 w-96')}
+        className={clsx('flex flex-col gap-8 w-96 pb-12')}
       >
         <div className={clsx('flex flex-col justify-center items-center')}>
           <Image
@@ -84,6 +84,9 @@ export default function Cadastrar() {
         <Input name="name" type="text" label={'Nome'} />
         <Input name="email" type="email" label={'E-mail'} />
         <Input name="password" type="password" label={'Senha'} />
+        <span className="cursor-pointer text-sky-400 font-bold" onClick={() => window.location.href = '/'}>
+          Tela de login
+        </span>
         <Button type="submit">Entrar</Button>
       </form>
     </FormProvider>

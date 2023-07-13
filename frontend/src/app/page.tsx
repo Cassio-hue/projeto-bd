@@ -47,6 +47,9 @@ export default function Login() {
       >
         <Input name="email" type="email" label={'E-mail'} />
         <Input name="password" type="password" label={'Senha'} />
+        <span className="cursor-pointer text-sky-400 font-bold" onClick={() => window.location.href = '/cadastrar'}>
+          Cadastrar conta
+        </span>
         <Button type="submit">Entrar</Button>
       </form>
     </FormProvider>
