@@ -34,14 +34,14 @@ const columns: readonly Column[] = [
   },
 ]
 
-export interface Data {
+export interface DepartmentTableData {
   id: number
   name: string
   departamento: string
 }
 
 interface StickyHeadTableProps {
-  rows: Data[]
+  rows: DepartmentTableData[]
 }
 
 export default function StickyHeadTable({ rows }: StickyHeadTableProps) {

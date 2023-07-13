@@ -30,7 +30,7 @@ export default function Home() {
         <Link href={'home/teacher'}>
           <Button>Professor</Button>
         </Link>
-        <Link href={'home/student'}>
+        <Link href={'home/students'}>
           <Button>Estudante</Button>
         </Link>
         <Link href={'home/department'}>

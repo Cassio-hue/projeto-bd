@@ -7,10 +7,9 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
-import { Button } from './Button'
 
 interface Column {
-  id: 'id' | 'matricula' | 'nome' | 'email' | 'admin' | 'actions'
+  id: 'id' | 'student_id' | 'name' | 'email' | 'is_admin'
   label: string
   minWidth?: number
   align?: 'right'
@@ -19,9 +18,9 @@ interface Column {
 
 const columns: readonly Column[] = [
   { id: 'id', label: 'Id', minWidth: 170 },
-  { id: 'matricula', label: 'Matrícula', minWidth: 100 },
+  { id: 'student_id', label: 'Matrícula', minWidth: 100 },
   {
-    id: 'nome',
+    id: 'name',
     label: 'Nome',
     minWidth: 170,
     align: 'right',
@@ -35,68 +34,26 @@ const columns: readonly Column[] = [
     format: (value: number) => value.toLocaleString('en-US'),
   },
   {
-    id: 'admin',
+    id: 'is_admin',
     label: 'Admin',
     minWidth: 170,
     align: 'right',
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: 'actions',
-    label: 'Ação',
-    minWidth: 30,
-    align: 'right',
-    format: (value: number) => value.toFixed(2),
   },
 ]
 
-interface Data {
+export interface StudentTableData {
   id: number
-  matricula: string
-  nome: string
+  student_id: string
+  name: string
   email: string
-  admin: string
+  is_admin: boolean
 }
 
-const rows: Data[] = [
-  {
-    id: 1,
-    nome: 'Cássio Borges',
-    email: 'cassiocvtb2003@gmail.com',
-    matricula: '211036141',
-    admin: 'true',
-  },
-  {
-    id: 2,
-    nome: 'Cássio Borges',
-    email: 'cassiocvtb2003@gmail.com',
-    matricula: '211036141',
-    admin: 'true',
-  },
-  {
-    id: 3,
-    nome: 'Cássio Borges',
-    email: 'cassiocvtb2003@gmail.com',
-    matricula: '211036141',
-    admin: 'true',
-  },
-  {
-    id: 4,
-    nome: 'Cássio Borges',
-    email: 'cassiocvtb2003@gmail.com',
-    matricula: '211036141',
-    admin: 'true',
-  },
-  {
-    id: 5,
-    nome: 'Cássio Borges',
-    email: 'cassiocvtb2003@gmail.com',
-    matricula: '211036141',
-    admin: 'true',
-  },
-]
+interface StickyHeadTableProps {
+  rows: StudentTableData[]
+}
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -131,30 +88,25 @@ export default function StickyHeadTable() {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    {columns.map((column) => {
-                      if (column.id === 'actions') {
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            <Button>Editar</Button>
-                            <Button>Apagar</Button>
-                          </TableCell>
-                        )
-                      }
-                      const value = row[column.id]
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      )
-                    })}
-                  </TableRow>
-                )
-              })}
+              .map((row) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  {columns.map((column) => {
+                    const value = row[column.id]
+                    let formattedValue = value
+                    if (column.id === 'is_admin') {
+                      formattedValue = value ? 'Sim' : 'Não'
+                    } else if (column.format && typeof value === 'number') {
+                      formattedValue = column.format(value)
+                    }
+
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {formattedValue}
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

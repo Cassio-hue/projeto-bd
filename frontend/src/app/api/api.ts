@@ -201,6 +201,26 @@ export const deleteTeacher = (data: TeacherType) => {
 //
 // Módulo de Estudantes
 //
+
+export const getAllStudents = () => {
+  return fetch('http://localhost:3333/students', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
 export const getStudentData = (identifier: number | string) => {
   return fetch(`http://localhost:3333/students/${identifier}`, {
     method: 'GET',
