@@ -24,6 +24,7 @@ export async function up(knex: Knex): Promise<void> {
     R.score as score,
     R.comment as comment, 
     S.name as student_name,
+    R.class_id as class_id,
     D.discipline_name as discipline_name 
   FROM 
     rating R

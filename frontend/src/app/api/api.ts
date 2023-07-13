@@ -263,3 +263,26 @@ export const createRating = (ratingData: RatingType) => {
     })
 
 }
+
+//
+// Módulo de avaliação
+//
+
+export const getAllRatings = () => {
+  return fetch('http://localhost:3333/ratings/complete-info', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
