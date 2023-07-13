@@ -69,14 +69,9 @@ export default function Perfil() {
 
   const handleIsAdminChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAdmin(event.target.value === 'is_admin')
-    console.log(isAdmin)
-
   }
 
   const onSubmit: SubmitHandler<StudentType> = async (data) => {
-    console.log(isAdmin)
-    methods.setValue('is_admin', isAdmin)
-    console.log(data)
     // Se um arquivo foi selecionado, adicione-o ao objeto de dados
     if (selectedFile) {
       data.picture = selectedFile
