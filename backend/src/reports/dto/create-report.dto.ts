@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsPositive, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsPositive } from 'class-validator';
 
 export class CreateReportDto {
   @IsNotEmpty()
-  @IsString()
+  @IsEmail()
   student_email: string;
 
   @IsNotEmpty()

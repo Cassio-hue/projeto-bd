@@ -1,4 +1,10 @@
-import { TeacherType, SignInType, StudentSignUpType, RatingType } from '../utils/types'
+import {
+  TeacherType,
+  SignInType,
+  StudentSignUpType,
+  RatingType,
+  ReportType,
+} from '../utils/types'
 
 //
 //  Módulo de Autenticação
@@ -41,7 +47,6 @@ export const signIn = (data: SignInType) => {
 }
 
 export const signUp = (data: StudentSignUpType) => {
-
   const formData = new FormData()
   formData.append('student_id', data.student_id)
   formData.append('name', data.name)
@@ -261,7 +266,6 @@ export const createRating = (ratingData: RatingType) => {
     .catch((err) => {
       throw err
     })
-
 }
 
 //
@@ -280,6 +284,32 @@ export const getAllRatings = () => {
         throw new Error('Erro de solicitação: ' + response.status)
       }
       return response.json()
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
+
+//
+// Módulo de Denúncias
+//
+
+export const makeReport = (reportData: ReportType) => {
+  console.log('QUASE FAZENDO O REPORT!', reportData)
+  return fetch('http://localhost:3333/reports', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify(reportData),
+  })
+    .then((response) => {
+      if (response.status !== 201) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
     })
     .then((json) => json)
     .catch((err) => {

@@ -89,7 +89,9 @@ export async function up(knex: Knex): Promise<void> {
     CONSTRAINT fk_rating_id
       FOREIGN KEY (rating_id)
       REFERENCES rating (id)
-      ON DELETE CASCADE
+      ON DELETE CASCADE,
+    CONSTRAINT unique_report_student_rating
+    UNIQUE (student_id, rating_id)
   );
   `);
 }

@@ -61,3 +61,8 @@ export interface RatingType {
   student_email: string | null
   class_id: number | undefined
 }
+
+export interface ReportType {
+  rating_id: number
+  student_email: string
+}
