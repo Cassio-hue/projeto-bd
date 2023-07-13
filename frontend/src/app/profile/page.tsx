@@ -13,6 +13,7 @@ import { FormControlLabel, Radio, RadioGroup } from '@mui/material'
 
 export default function Perfil() {
   const [studentData, setStudentData] = useState<StudentType>()
+  const [isAdmin, setIsAdmin] = useState<boolean>()
   const [src, setSrc] = useState('')
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Perfil() {
         })
         .catch(() => alert('Erro ao listar departamentos'))
     }
-  })
+  }, [])
 
   const userFormDefaultValues: StudentType = {
     name: '',
@@ -59,7 +60,6 @@ export default function Perfil() {
   })
 
   const [selectedFile, setSelectedFile] = useState(null)
-  const [isAdmin, setIsAdmin] = useState<boolean>()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileChange = (event: any) => {
@@ -69,10 +69,14 @@ export default function Perfil() {
 
   const handleIsAdminChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAdmin(event.target.value === 'is_admin')
-    methods.setValue('is_admin', event.target.value === 'is_admin')
+    console.log(isAdmin)
+
   }
 
   const onSubmit: SubmitHandler<StudentType> = async (data) => {
+    console.log(isAdmin)
+    methods.setValue('is_admin', isAdmin)
+    console.log(data)
     // Se um arquivo foi selecionado, adicione-o ao objeto de dados
     if (selectedFile) {
       data.picture = selectedFile
@@ -121,7 +125,7 @@ export default function Perfil() {
         <RadioGroup
           aria-labelledby="demo-controlled-radio-buttons-group"
           name="controlled-radio-buttons-group"
-          value={isAdmin ? 'is_admin' : 'not_admin'} // Definir o valor com base em isAdmin
+          value={isAdmin ? 'is_admin' : 'not_admin'}
           onChange={handleIsAdminChange}
         >
           <FormControlLabel value="is_admin" control={<Radio />} label="Sim" />
