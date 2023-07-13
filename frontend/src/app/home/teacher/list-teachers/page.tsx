@@ -2,13 +2,13 @@
 
 import clsx from 'clsx'
 import StickyHeadTable, {
-  DepartmentTableData,
+  TeacherTableData,
 } from '../../../components/TeacherTable'
 import { useEffect, useState } from 'react'
 import { getAllTeachers } from '../../../api/api'
 
 export default function ListTeachers() {
-  const [teachers, setTeachers] = useState<DepartmentTableData[]>([])
+  const [teachers, setTeachers] = useState<TeacherTableData[]>([])
 
   useEffect(() => {
     getAllTeachers()

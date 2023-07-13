@@ -9,42 +9,35 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 
 interface Column {
-  id: 'id' | 'name' | 'departamento'
+  id: 'id' | 'department_name'
   label: string
   minWidth?: number
-  align?: 'right'
+  align?: 'right' | 'left'
   format?: (value: number) => string
 }
 
 const columns: readonly Column[] = [
-  { id: 'id', label: 'Id', minWidth: 170 },
+  { id: 'id', label: 'Código do Departamento', minWidth: 70 },
   {
-    id: 'name',
+    id: 'department_name',
     label: 'Nome',
-    minWidth: 170,
-    align: 'right',
-    format: (value: number) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'departamento',
-    label: 'Departamento',
-    minWidth: 170,
-    align: 'right',
+    minWidth: 370,
+    align: 'left',
     format: (value: number) => value.toLocaleString('en-US'),
   },
 ]
 
-export interface TeacherTableData {
+export interface DepartmentTableData {
   id: number
-  name: string
-  departamento: string
+  department_name: string
 }
 
 interface StickyHeadTableProps {
-  rows: TeacherTableData[]
+  rows: DepartmentTableData[]
 }
 
 export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
+  console.log(rows)
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -82,7 +75,12 @@ export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={row.id}
+                >
                   {columns.map((column) => {
                     const value = row[column.id]
                     return (

@@ -33,7 +33,7 @@ export default function Home() {
         <Link href={'home/students'}>
           <Button>Estudante</Button>
         </Link>
-        <Link href={'home/department'}>
+        <Link href={'home/departments'}>
           <Button>Departamento</Button>
         </Link>
         <Link href={'/class'}>
