@@ -10,8 +10,8 @@ export default function Header() {
       <nav className={clsx('flex w-full justify-center')}>
         <div>
           <NavOption to="/home">Home</NavOption>
-          <NavOption to="/turmas">Turmas</NavOption>
-          <NavOption to="/perfil">Perfil</NavOption>
+          <NavOption to="/class">Turmas</NavOption>
+          <NavOption to="/profile">Perfil</NavOption>
           <span
             className="ml-4 text-red-600 cursor-pointer"
             onClick={() => {

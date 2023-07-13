@@ -36,7 +36,7 @@ export default function Home() {
         <Link href={'home/department'}>
           <Button>Departamento</Button>
         </Link>
-        <Link href={'home/class'}>
+        <Link href={'/class'}>
           <Button>Turmas</Button>
         </Link>
       </div>
@@ -44,7 +44,7 @@ export default function Home() {
   } else {
     return (
       <div className="flex flex-col gap-5 w-44">
-        <Link href={'home/class'}>
+        <Link href={'/class'}>
           <Button>Turmas</Button>
         </Link>
       </div>
