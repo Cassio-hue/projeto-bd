@@ -1,6 +1,6 @@
 'use client'
 import clsx from 'clsx'
-import StickyHeadTable from '../../components/Table'
+import StickyHeadTable from '../../components/StudentTable'
 
 export default function Home() {
   return (

@@ -7,7 +7,12 @@ import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { createTeacher, getAllDepartments } from '../../api/api'
-import { DepartmentType, TeacherType } from '../../utils/types'
+import { TeacherType } from '../../utils/types'
+
+export type DepartmentType = {
+  id: number
+  department_name: string
+}
 
 export function CreateTeacher() {
   const userFormDefaultValues: TeacherType = {
@@ -25,7 +30,7 @@ export function CreateTeacher() {
     getAllDepartments()
       .then((data) => {
         const formattedData = data.map((item: DepartmentType) => ({
-          id: item.department_code,
+          id: item.id,
           label: item.department_name,
         }))
         setDepartments(formattedData)
@@ -52,7 +57,7 @@ export function CreateTeacher() {
         <h1 className="text-lg">Cadastrar professor</h1>
         <Input name="name" type="text" label={'Nome'} />
         <Autocomplete
-          name="department_id"
+          name="department_code"
           values={departmentsData}
           label={'Departamento'}
         />

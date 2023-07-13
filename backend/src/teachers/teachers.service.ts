@@ -22,7 +22,9 @@ export class TeachersService {
   }
 
   async create(createTeacherDto: CreateTeacherDto) {
-    await this.DepartmentCRUD.checkDepartmentId(createTeacherDto.department_id);
+    await this.DepartmentCRUD.checkDepartmentId(
+      createTeacherDto.department_code,
+    );
     await this.CRUD.create(createTeacherDto).catch((err) => {
       if (err.code == '23505')
         throw new UnprocessableEntityException(err.detail);

@@ -7,8 +7,13 @@ import { Button } from '../../components/Button'
 import { Autocomplete, DataAutocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
 import { updateTeacher, getAllDepartments, getAllTeachers } from '../../api/api'
-import { DepartmentType, TeacherType } from '../../utils/types'
+import { TeacherType } from '../../utils/types'
 
+
+export type DepartmentType = {
+  id: number
+  department_name: string
+}
 
 export function UpdateTeacher() {
   const userFormDefaultValues: TeacherType = {
@@ -28,7 +33,7 @@ export function UpdateTeacher() {
     getAllDepartments()
       .then((data) => {
         const formattedData = data.map((item: DepartmentType) => ({
-          id: item.department_code,
+          id: item.id,
           label: item.department_name,
         }))
         setDepartments(formattedData)

@@ -11,6 +11,7 @@ export default function CRUDTeacher() {
   const [openCreate, setCreateOpen] = useState(false)
   const [openUpdate, setUpdateOpen] = useState(false)
   const [openDelete, setDeleteOpen] = useState(false)
+
   return (
     <div className={clsx('flex flex-col gap-8')}>
       <Modal open={openCreate} handleClose={() => setCreateOpen(false)}>
@@ -22,9 +23,17 @@ export default function CRUDTeacher() {
       <Modal open={openDelete} handleClose={() => setDeleteOpen(false)}>
         <DeleteTeacher />
       </Modal>
-      <Button style={'CREATE'} onClick={() => setCreateOpen(true)}>Cadastrar professor</Button>
-      <Button style={'UPDATE'} onClick={() => setUpdateOpen(true)}>Editar professor</Button>
-      <Button style={'DELETE'} onClick={() => setDeleteOpen(true)}>Deletar professor</Button>
+
+      <Button style={'CREATE'} onClick={() => setCreateOpen(true)}>
+        Cadastrar professor
+      </Button>
+      <Button style={'UPDATE'} onClick={() => setUpdateOpen(true)}>
+        Editar professor
+      </Button>
+      <Button style={'DELETE'} onClick={() => setDeleteOpen(true)}>
+        Deletar professor
+      </Button>
+      <Button style={'LIST'} onClick={() => window.location.href = '/home/teacher/list-teachers'}>Listar professores</Button>
     </div>
   )
 }

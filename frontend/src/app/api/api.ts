@@ -136,6 +136,7 @@ export const getAllTeachers = () => {
 }
 
 export const createTeacher = (teacherData: TeacherType) => {
+  console.log('Olha o dado do teacher: ', teacherData)
   return fetch('http://localhost:3333/teachers', {
     method: 'POST',
     headers: {

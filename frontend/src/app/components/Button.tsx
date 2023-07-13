@@ -16,9 +16,13 @@ const styleType = {
     backgroundColor: '#b91c1c',
     color: 'white',
   },
+  LIST: {
+    backgroundColor: '#004080',
+    color: 'white',
+  },
 }
 interface ButtonProps extends Omit<MUIButtonProps, 'style'> {
-  style?: 'CREATE' | 'UPDATE' | 'DELETE'
+  style?: 'CREATE' | 'UPDATE' | 'DELETE' | 'LIST'
 }
 
 export const Button = ({

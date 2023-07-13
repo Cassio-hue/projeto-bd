@@ -20,6 +20,7 @@ export class TeachersController {
 
   @Post()
   create(@Body() createTeacherDto: CreateTeacherDto) {
+    console.log('Opa! Cheguei aqui! No controller!');
     return this.teachersService.create(createTeacherDto);
   }
 

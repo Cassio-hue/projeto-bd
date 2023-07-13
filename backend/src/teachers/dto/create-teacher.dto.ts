@@ -8,5 +8,5 @@ export class CreateTeacherDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  department_id: number;
+  department_code: number;
 }

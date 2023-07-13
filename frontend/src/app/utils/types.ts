@@ -4,7 +4,7 @@ export type SignInType = {
 }
 
 export type DepartmentType = {
-  department_code?: number
+  id?: number
   department_name?: string
 }
 
@@ -18,7 +18,7 @@ export type DisciplineType = {
   id?: number
   code?: number
   discipline_name?: string
-  department_id?: number
+  department_code?: number
   teacher_id?: number
 }
 
