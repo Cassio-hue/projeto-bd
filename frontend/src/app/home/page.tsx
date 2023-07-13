@@ -26,7 +26,7 @@ export default function Home() {
 
   if (admin) {
     return (
-      <div className="flex flex-col gap-5 w-44 mt-32">
+      <div className="flex flex-col gap-5 w-44">
         <Link href={'home/teacher'}>
           <Button>Professor</Button>
         </Link>
@@ -43,7 +43,7 @@ export default function Home() {
     )
   } else {
     return (
-      <div className="flex flex-col gap-5 w-44 mt-32">
+      <div className="flex flex-col gap-5 w-44">
         <Link href={'home/class'}>
           <Button>Turmas</Button>
         </Link>
