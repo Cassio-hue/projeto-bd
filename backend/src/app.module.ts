@@ -10,6 +10,7 @@ import { DisciplinesModule } from './disciplines/disciplines.module';
 import { ClassesModule } from './classes/classes.module';
 import { AuthModule } from './auth/auth.module';
 import { RatingsModule } from './ratings/ratings.module';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RatingsModule } from './ratings/ratings.module';
     ClassesModule,
     AuthModule,
     RatingsModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
