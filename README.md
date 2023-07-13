@@ -51,11 +51,7 @@ Se tudo der certo, será criado uma pasta node_module nas pastas com todas as de
 ## Passo 4: Migrations e Seeds
 Para criar as tabelas no banco de dados e popula-las, rode os comandos:
 ```
-yarn knex migrate:latest // Cria as tabelas e relações no banco
-```
-
-```
-yarn knex seed:run // Popula as tabelas
+yarn run create // Cria as tabelas e as popula
 ```
 
 ## Passo 5: Inicie o servidor do backend
