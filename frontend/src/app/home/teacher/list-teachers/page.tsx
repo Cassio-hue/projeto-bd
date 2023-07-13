@@ -5,12 +5,20 @@ import StickyHeadTable, {
   TeacherTableData,
 } from '../../../components/TeacherTable'
 import { useEffect, useState } from 'react'
-import { getAllTeachers } from '../../../api/api'
+import { getAllTeachers, isAuthenticated } from '../../../api/api'
 
 export default function ListTeachers() {
   const [teachers, setTeachers] = useState<TeacherTableData[]>([])
 
+
   useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+    if(localStorage.getItem('admin') === 'false'){
+      window.location.href = '/home'
+    }
+
     getAllTeachers()
       .then((res) => setTeachers(res))
       .catch(() => alert('Erro ao listar professores do sistema'))
