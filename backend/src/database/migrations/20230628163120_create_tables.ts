@@ -25,7 +25,7 @@ export async function up(knex: Knex): Promise<void> {
       FOREIGN KEY (department_code)
       REFERENCES department (id)
       ON DELETE NO ACTION
-      ON UPDATE NO ACTION
+      ON UPDATE CASCADE
   );
   
   CREATE TABLE IF NOT EXISTS discipline (

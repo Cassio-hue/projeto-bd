@@ -55,9 +55,10 @@ export class TeachersService {
       });
   }
 
-  async update(id: number, createTeacherDto: UpdateTeacherDto) {
+  async update(id: number, updateTeacherDto: UpdateTeacherDto) {
     await this.checkTeacherId(id);
-    await this.CRUD.update(id, createTeacherDto).catch((err) => {
+    await this.CRUD.update(id, updateTeacherDto).catch((err) => {
+      console.log(err);
       if (err.code == '23505')
         throw new UnprocessableEntityException(err.detail);
       else
