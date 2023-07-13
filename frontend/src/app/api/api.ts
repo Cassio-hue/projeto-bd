@@ -1,4 +1,4 @@
-import { TeacherType, SignInType, StudentSignUpType } from '../utils/types'
+import { TeacherType, SignInType, StudentSignUpType, RatingType } from '../utils/types'
 
 //
 //  Módulo de Autenticação
@@ -238,4 +238,28 @@ export const getStudentData = (identifier: number | string) => {
     .catch((err) => {
       throw err
     })
+}
+
+// export const updateStudent = (studentData: StudentType) => {}
+
+export const createRating = (ratingData: RatingType) => {
+  return fetch('http://localhost:3333/students/rating', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify(ratingData),
+  })
+    .then((response) => {
+      if (response.status !== 201) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+
 }

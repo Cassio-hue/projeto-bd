@@ -54,3 +54,10 @@ export type StudentType = {
   is_admin?: boolean
   picture?: Picture | null | undefined
 }
+
+export interface RatingType {
+  score?: number | undefined
+  comment?: string | undefined
+  student_email: string | null
+  class_id: number | undefined
+}
