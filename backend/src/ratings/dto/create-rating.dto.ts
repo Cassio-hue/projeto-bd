@@ -2,7 +2,6 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
-  IsPositive,
   IsString,
   Max,
   Min,
@@ -23,4 +22,8 @@ export class CreateRatingDto {
   @IsEmail()
   @IsString()
   student_email: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  class_id: number;
 }

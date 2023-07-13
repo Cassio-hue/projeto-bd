@@ -64,7 +64,7 @@ export async function up(knex: Knex): Promise<void> {
     id SERIAL PRIMARY KEY,
     score INT NOT NULL,
     comment VARCHAR(250),
-    student_id INT,
+    student_id INT NOT NULL,
     CONSTRAINT fk_student_id
       FOREIGN KEY (student_id)
       REFERENCES student (id)
@@ -73,7 +73,9 @@ export async function up(knex: Knex): Promise<void> {
     class_id INT NOT NULL,
     CONSTRAINT fk_class_id
       FOREIGN KEY (class_id)
-      REFERENCES class (id)
+      REFERENCES class (id),
+    CONSTRAINT unique_rating_student_class
+      UNIQUE (student_id, class_id)
   );
   
   CREATE TABLE IF NOT EXISTS report (

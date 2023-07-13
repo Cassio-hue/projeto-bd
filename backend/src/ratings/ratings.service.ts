@@ -8,6 +8,7 @@ import { UpdateRatingDto } from './dto/update-rating.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { CRUD } from '../utils';
 import { StudentsService } from '../students/students.service';
+import { ClassesService } from '../classes/classes.service';
 
 @Injectable()
 export class RatingsService {
@@ -16,44 +17,73 @@ export class RatingsService {
   constructor(
     @InjectKnex() private readonly knex: Knex,
     private studentService: StudentsService,
+    private classService: ClassesService,
   ) {
     this.knex = knex;
     this.CRUD = new CRUD(this.knex, this.table_name);
   }
 
   async create(createRatingDto: CreateRatingDto) {
-    const student_id = await this.getStudentId(createRatingDto.student_email);
+    const { student_email, ...createRatingData } = createRatingDto;
+    const student_id = await this.getStudentId(student_email);
     const data = {
       student_id: student_id,
-      score: createRatingDto.score,
-      comment: createRatingDto.comment,
+      ...createRatingData,
     };
-    await this.CRUD.create(data).catch(() => {
-      throw new BadRequestException('Algo deu errado ao criar avaliação');
+    await this.CRUD.create(data).catch((err) => {
+      throw new BadRequestException(
+        `Algo deu errado ao criar avaliação ${err}`,
+      );
     });
     return 'Avaliação criada com sucesso';
   }
 
-  findAll() {
-    return `This action returns all ratings`;
+  async findAll() {
+    return await this.CRUD.findAll()
+      .catch(() => {
+        throw Error('Erro ao buscar todass as avaliações');
+      })
+      .then((res) => res);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} rating`;
+  async findOne(id: number) {
+    return await this.CRUD.findOne({ id })
+      .catch()
+      .then((res) => {
+        if (res.length == 0)
+          throw new NotFoundException('Id fornecido não foi encontrado');
+        return res;
+      });
   }
 
-  update(id: number, updateRatingDto: UpdateRatingDto) {
-    return `This action updates a #${id} rating`;
+  async update(id: number, updateRatingDto: UpdateRatingDto) {
+    await this.checkRatingId(id);
+    await this.CRUD.update(id, updateRatingDto).catch((err) => {
+      throw new BadRequestException('Erro ao tentar atualizar avaliação', err);
+    });
+    return 'Avaliação atualizada com sucesso';
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} rating`;
+  async remove(id: number) {
+    await this.checkRatingId(id);
+    await this.CRUD.delete(id).catch((err) => {
+      throw Error(`Erro ao tentar remover estudante: ${err}`);
+    });
+    return 'Avaliação removida com sucesso';
+  }
+
+  async checkClassId(id: number) {
+    const classUnB = await this.classService.findOne(id);
+    if (classUnB.length == 0)
+      throw new NotFoundException('Id da turma fornecido não foi encontrado');
   }
 
   async getStudentId(email: string) {
     const student = await this.studentService.CRUD.findOne({ email });
     if (student.length == 0)
-      throw new NotFoundException('Id fornecido não foi encontrado');
+      throw new NotFoundException(
+        'Id do estudante fornecido não foi encontrado',
+      );
 
     return student[0].id;
   }
