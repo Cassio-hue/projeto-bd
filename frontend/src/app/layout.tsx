@@ -20,7 +20,7 @@ export default function RootLayout({
 
         <main
           className={clsx(
-            'flex flex-col h-screen justify-center items-center'
+            'flex flex-col h-full my-auto justify-center items-center'
           )}
         >
           {children}

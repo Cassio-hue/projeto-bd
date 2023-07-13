@@ -43,7 +43,7 @@ export default function Login() {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex flex-col gap-8 w-96')}
+        className={clsx('flex flex-col gap-8 w-96 mt-')}
       >
         <Input name="email" type="email" label={'E-mail'} />
         <Input name="password" type="password" label={'Senha'} />
