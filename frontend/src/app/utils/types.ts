@@ -47,7 +47,7 @@ interface Picture {
 }
 
 export type StudentType = {
-  student_id?: string | Blob
+  student_id?: string
   name?: string
   email?: string
   password?: string

@@ -4,6 +4,7 @@ import {
   StudentSignUpType,
   RatingType,
   ReportType,
+  StudentType,
 } from '../utils/types'
 
 //
@@ -245,7 +246,27 @@ export const getStudentData = (identifier: number | string) => {
     })
 }
 
-// export const updateStudent = (studentData: StudentType) => {}
+export const updateStudent = (studentData: StudentType) => {
+  const { email, ...updateStudentData } = studentData
+  return fetch(`http://localhost:3333/students/${email}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify(updateStudentData),
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
+}
 
 export const createRating = (ratingData: RatingType) => {
   return fetch('http://localhost:3333/students/rating', {

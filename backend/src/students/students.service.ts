@@ -62,24 +62,30 @@ export class StudentsService {
       });
   }
 
-  async update(id: number, updateStudentDto: UpdateStudentDto) {
+  async update(id: string, updateStudentDto: UpdateStudentDto) {
+    console.log('Esta chegando aqui no serviço', updateStudentDto);
     await this.checkUserId(id);
-    await this.CRUD.update(id, updateStudentDto).catch((err) => {
+    const student_id = await this.getStudentId(id);
+
+    await this.CRUD.update(student_id, updateStudentDto).catch((err) => {
       throw new BadRequestException('Erro ao tentar atualizar estudante', err);
     });
     return 'Estudante atualizado com sucesso';
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     await this.checkUserId(id);
-    await this.CRUD.delete(id).catch(() => {
+
+    const student_id = await this.getStudentId(id);
+
+    await this.CRUD.delete(student_id).catch(() => {
       throw Error('Erro ao tentar remover estudante');
     });
     return 'Estudante removido com sucesso';
   }
 
-  async checkUserId(id: number) {
-    const user = await this.findOne({ id });
+  async checkUserId(id: string) {
+    const user = await this.findOne({ email: id });
     if (user.length == 0)
       throw new NotFoundException('Id fornecido não foi encontrado');
   }

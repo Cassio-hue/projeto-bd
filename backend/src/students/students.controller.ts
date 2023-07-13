@@ -56,12 +56,12 @@ export class StudentsController {
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentsService.update(+id, updateStudentDto);
+    return this.studentsService.update(id, updateStudentDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.studentsService.remove(+id);
+    return this.studentsService.remove(id);
   }
 }

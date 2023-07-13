@@ -8,9 +8,10 @@ type InputProps = TextFieldProps & {
   type: string
   multiline?: boolean
   rows?: number
+  disabled?: boolean
 }
 
-export const Input = ({ label, name, type, multiline, rows }: InputProps) => {
+export const Input = ({ label, name, type, multiline, rows, disabled }: InputProps) => {
   const methods = useFormContext()
 
   return (
@@ -24,6 +25,7 @@ export const Input = ({ label, name, type, multiline, rows }: InputProps) => {
           type={type}
           multiline={multiline ? true : false} 
           rows={multiline ? rows : undefined}
+          disabled={disabled ? true : false}
           {...field}
         />
       )}
