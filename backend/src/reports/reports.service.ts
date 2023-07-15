@@ -4,11 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';
-import { UpdateReportDto } from './dto/update-report.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { CRUD } from '../utils';
 import { StudentsService } from '../students/students.service';
-import { ClassesService } from '../classes/classes.service';
+import { RatingsService } from '../ratings/ratings.service';
 
 @Injectable()
 export class ReportsService {
@@ -17,7 +16,7 @@ export class ReportsService {
   constructor(
     @InjectKnex() private readonly knex: Knex,
     private studentService: StudentsService,
-    private classService: ClassesService,
+    private ratingService: RatingsService,
   ) {
     this.knex = knex;
     this.CRUD = new CRUD(this.knex, this.table_name);
@@ -26,14 +25,16 @@ export class ReportsService {
   async create(createReportDto: CreateReportDto) {
     const { student_email, rating_id } = createReportDto;
 
-    await this.classService.checkClassId(rating_id);
+    const student = await this.studentService.findOne({ email: student_email });
+    const { student_id } = await this.ratingService.findOne(rating_id);
 
-    const student_id = await this.studentService.getStudentId(student_email);
+    if (student.id === student_id)
+      throw new BadRequestException(
+        'Você não pode denunciar sua própria avaliação',
+      );
 
     await this.CRUD.create({ student_id, rating_id }).catch((err) => {
-      throw new BadRequestException(
-        `Algo deu errado ao criar relatório ${err}`,
-      );
+      throw new BadRequestException(`Algo deu errado ao criar denúncia ${err}`);
     });
     return 'Denuncia criada com sucesso';
   }
@@ -46,12 +47,12 @@ export class ReportsService {
       .then((res) => res);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} report`;
-  }
-
-  update(id: number, updateReportDto: UpdateReportDto) {
-    return `This action updates a #${id} report`;
+  async findOne(id: number) {
+    return await this.CRUD.findOne({ id })
+      .catch((err) => {
+        throw Error(`Erro ao buscar denúncia: ${err}`);
+      })
+      .then((res) => res);
   }
 
   async remove(id: number) {

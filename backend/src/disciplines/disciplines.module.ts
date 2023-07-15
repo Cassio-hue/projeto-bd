@@ -4,6 +4,6 @@ import { DisciplinesController } from './disciplines.controller';
 
 @Module({
   controllers: [DisciplinesController],
-  providers: [DisciplinesService]
+  providers: [DisciplinesService],
 })
 export class DisciplinesModule {}
