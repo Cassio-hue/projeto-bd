@@ -63,7 +63,6 @@ export class StudentsService {
   }
 
   async update(id: string, updateStudentDto: UpdateStudentDto) {
-    console.log('Esta chegando aqui no serviço', updateStudentDto);
     await this.checkUserId(id);
     const student_id = await this.getStudentId(id);
 

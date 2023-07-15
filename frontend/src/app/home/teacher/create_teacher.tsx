@@ -43,7 +43,6 @@ export function CreateTeacher() {
       await createTeacher(data)
       alert('Professor criado com sucesso!')
     } catch (err) {
-      console.log(err)
       alert('Ocorreu um erro ao criar o professor')
     }
   }

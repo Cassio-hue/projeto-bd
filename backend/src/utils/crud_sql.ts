@@ -33,7 +33,6 @@ export class CRUD {
       .join(', ');
 
     const query = `UPDATE ${this.table_name} SET ${columnValue} WHERE id = ${id};`;
-    console.log(query);
 
     await this.knex.raw(query);
   }

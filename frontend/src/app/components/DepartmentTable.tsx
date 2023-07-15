@@ -37,7 +37,6 @@ interface StickyHeadTableProps {
 }
 
 export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
-  console.log(rows)
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -51,8 +50,6 @@ export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
-
-  console.log('Essas são as linhas: ', rows)
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
