@@ -39,6 +39,9 @@ export function CreateTeacher() {
   }, [])
 
   const onSubmit: SubmitHandler<TeacherType> = async (data) => {
+
+    data.name = data.name?.toUpperCase()
+
     try {
       await createTeacher(data)
       alert('Professor criado com sucesso!')

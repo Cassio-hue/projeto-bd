@@ -5,10 +5,16 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { Autocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
-import { deleteTeacher, getAllTeachers } from '../../api/api'
+import { deleteTeacher, getAllTeachers, isAuthenticated } from '../../api/api'
 import { TeacherType } from '../../utils/types'
 
 export function DeleteTeacher() {
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+  }, [])
+
   const userFormDefaultValues: TeacherType = {
     name: '',
     department_code: 0,

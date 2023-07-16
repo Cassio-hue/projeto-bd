@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 
 interface Column {
-  id: 'id' | 'name' | 'departamento'
+  id: 'id' | 'name' | 'department_code'
   label: string
   minWidth?: number
   align?: 'right'
@@ -26,7 +26,7 @@ const columns: readonly Column[] = [
     format: (value: number) => value.toLocaleString('en-US'),
   },
   {
-    id: 'departamento',
+    id: 'department_code',
     label: 'Departamento',
     minWidth: 170,
     align: 'right',
@@ -37,7 +37,7 @@ const columns: readonly Column[] = [
 export interface TeacherTableData {
   id: number
   name: string
-  departamento: string
+  department_code: number
 }
 
 interface StickyHeadTableProps {
@@ -58,6 +58,8 @@ export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
     setRowsPerPage(+event.target.value)
     setPage(0)
   }
+
+  console.log('rows', rows)
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>

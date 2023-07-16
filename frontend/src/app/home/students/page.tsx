@@ -4,7 +4,7 @@ import StickyHeadTable, {
   StudentTableData,
 } from '../../components/StudentTable'
 import { useEffect, useState } from 'react'
-import { deleteStudent, getAllStudents, updateStudent } from '../../api/api'
+import { deleteStudent, getAllStudents, isAuthenticated, updateStudent } from '../../api/api'
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -12,6 +12,12 @@ import { StudentType } from '../../utils/types'
 import { FormControlLabel, Radio } from '@mui/material'
 
 export default function ListStudents() {
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+  }, [])
+
   const [students, setStudents] = useState<StudentTableData[]>([])
   const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined)
 

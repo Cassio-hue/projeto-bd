@@ -10,13 +10,6 @@ import {
 import clsx from 'clsx'
 import { Button } from '../../components/Button'
 
-// "rating_id": 1,
-// "score": 4,
-// "comment": "Banco de dadinho é pika",
-// "report_id": 1,
-// "report_count": 1,
-// "student_name": "Admin",
-// "teacher_name": "PEDRO GARCIA FREITAS"
 interface RatingReports {
   rating_id: number
   score: number

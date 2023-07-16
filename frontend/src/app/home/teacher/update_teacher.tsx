@@ -6,7 +6,7 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { Autocomplete, DataAutocomplete } from '../../components/Autocomplete'
 import { useEffect, useState } from 'react'
-import { updateTeacher, getAllDepartments, getAllTeachers } from '../../api/api'
+import { updateTeacher, getAllDepartments, getAllTeachers, isAuthenticated } from '../../api/api'
 import { TeacherType } from '../../utils/types'
 
 
@@ -16,6 +16,13 @@ export type DepartmentType = {
 }
 
 export function UpdateTeacher() {
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+  }, [])
+
   const userFormDefaultValues: TeacherType = {
     name: '',
     department_code: 0,
@@ -74,6 +81,7 @@ export function UpdateTeacher() {
   }
 
   const onSubmit: SubmitHandler<TeacherType> = async (data) => {
+    data.name = data.name?.toUpperCase()
     try {
       await updateTeacher(data)
       alert('Professor atualizado com sucesso!')

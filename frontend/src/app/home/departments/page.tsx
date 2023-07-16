@@ -4,9 +4,15 @@ import StickyHeadTable, {
   DepartmentTableData,
 } from '../../components/DepartmentTable'
 import { useEffect, useState } from 'react'
-import { getAllDepartments } from '../../api/api'
+import { getAllDepartments, isAuthenticated } from '../../api/api'
 
 export default function ListDepartments() {
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/'
+    }
+  }, [])
+
   const [departments, setDepartments] = useState<DepartmentTableData[]>([])
 
   useEffect(() => {
