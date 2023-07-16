@@ -5,6 +5,7 @@ import {
   RatingType,
   ReportType,
   StudentType,
+  ClassType,
 } from '../utils/types'
 
 //
@@ -78,6 +79,27 @@ export const signUp = (data: StudentSignUpType) => {
 //
 // Módulo de turmas
 //
+
+export const createClass = (classData: ClassType) => {
+  return fetch('http://localhost:3333/classes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify(classData),
+  })
+    .then((response) => {
+      if (response.status !== 201) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .catch((err) => {
+      throw err
+    })
+}
+
 export const getAllClassInfo = () => {
   return fetch('http://localhost:3333/classes/complete-info', {
     method: 'GET',
@@ -97,6 +119,24 @@ export const getAllClassInfo = () => {
     })
 }
 
+export const deleteClass = (id: number) => {
+  return fetch(`http://localhost:3333/classes/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .catch((err) => {
+      throw err
+    }
+    )
+}
 //
 // Módulo de departamentos
 //
@@ -401,6 +441,29 @@ export const deleteReport = (id: number) => {
       }
       return response
     })
+    .catch((err) => {
+      throw err
+    })
+}
+
+//
+// Módulo de Disciplinas
+//
+
+export const getAllDisciplines = () => {
+  return fetch('http://localhost:3333/disciplines', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
+    .then((json) => json)
     .catch((err) => {
       throw err
     })

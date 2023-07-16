@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { DepartmentsService } from './departments.service';
 import { CreateDepartamentDto } from './dto/create-departments.dto';
 import { UpdateDepartamentDto } from './dto/update-department.dto';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('departments')
 export class DepartamentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}

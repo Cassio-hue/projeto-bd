@@ -14,21 +14,14 @@ export type TeacherType = {
   department_code?: number
 }
 
-export type DisciplineType = {
-  id?: number
-  code?: number
-  discipline_name?: string
-  department_code?: number
-  teacher_id?: number
-}
-
 export type ClassType = {
   id?: number
   turma?: number
   period?: string
   schedule?: string
   local?: string
-  discipline_id?: number
+  discipline_name?: string
+  discipline_id?: string
   teacher_id?: number
 }
 
@@ -65,4 +58,10 @@ export interface RatingType {
 export interface ReportType {
   rating_id: number
   student_email: string
+}
+
+export interface DisciplineType {
+  id: string
+	discipline_name: string
+	department_code: number
 }

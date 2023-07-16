@@ -46,13 +46,14 @@ const RatingComponent = ({ values }: RatingComponentProps) => {
 
     getAllRatings()
       .then((res) => {
-        const filteredRatings = res.filter((rating: RatingType) => rating.class_id === values?.id)
+        const filteredRatings = res.filter(
+          (rating: RatingType) => rating.class_id === values?.id
+        )
         setRating(filteredRatings)
       })
       .catch(() => alert('Erro ao listar avaliações'))
   }, [])
 
-  
   const onSubmit: SubmitHandler<RatingType> = async (data) => {
     const res = await createRating(data)
       .catch(() => {
@@ -102,7 +103,7 @@ export const CardClass = ({ values }: Props) => {
         {classUnB ? (
           <RatingComponent values={classUnB} />
         ) : (
-          <div>Erro ao renderizar</div>
+          <h1>Erro ao renderizar</h1>
         )}
       </Modal>
       {values.map((item) => (
@@ -143,6 +144,9 @@ export const CardClass = ({ values }: Props) => {
           </div>
         </div>
       ))}
+      {
+        values.length === 0 && (<h1 className={clsx('text-2xl')}>Nenhuma turma cadastrada</h1>)
+      }
     </>
   )
 }
