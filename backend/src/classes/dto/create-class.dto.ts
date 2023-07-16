@@ -19,9 +19,8 @@ export class CreateClassDto {
   local: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
-  discipline_id: number;
+  @IsString()
+  discipline_id: string;
 
   @IsNotEmpty()
   @IsNumber()
