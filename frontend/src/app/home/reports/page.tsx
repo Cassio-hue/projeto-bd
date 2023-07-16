@@ -1,7 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { deleteRating, deleteReport, getRatingReports, isAuthenticated } from '../../api/api'
+import {
+  deleteRating,
+  deleteReport,
+  getRatingReports,
+  isAuthenticated,
+} from '../../api/api'
 import clsx from 'clsx'
 import { Button } from '../../components/Button'
 
@@ -68,19 +73,42 @@ export default function Reports() {
       {reports ? (
         reports.map((report) => (
           <div
-            className={clsx('w-1/2 flex flex-col border border-red-600 p-4')}
+            className={clsx('w-1/2 flex flex-col border rounded-lg p-4 m-2')}
             key={report.report_id}
           >
-            <span>Estudante: {report.student_name}</span>
-            <span>Professor: {report.teacher_name}</span>
-            <span>Avaliação: {report.score}</span>
-            <span>Comentário: {report.comment}</span>
-            <span>Quantidade de denúncias: {report.report_count}</span>
-            <div className={clsx('flex')}>
-              <Button style="CREATE" onClick={() => handleAccept(report.report_id)}>
-                Aceitar avaliação
+            <span>
+              <span className="font-bold">Estudante:</span>{' '}
+              {report.student_name}
+            </span>
+            <span>
+              <span className="font-bold">Professor:</span>{' '}
+              {report.teacher_name}
+            </span>
+            <span>
+              <span className="font-bold">Avaliação:</span> {report.score}
+            </span>
+            <span>
+              <span className="font-bold">Comentário:</span> {report.comment}
+            </span>
+            <span>
+              <span className="font-bold">Quantidade de denúncias:</span>{' '}
+              {report.report_count}
+            </span>
+            <div className={clsx('flex my-3')}>
+              <div className={clsx('w-full mr-3')}>
+                <Button
+                  style="CREATE"
+                  onClick={() => handleAccept(report.report_id)}
+                >
+                  Aceitar avaliação
+                </Button>
+              </div>
+              <Button
+                style="DELETE"
+                onClick={() => handleDelete(report.rating_id)}
+              >
+                Deletar avaliação
               </Button>
-              <Button style="DELETE" onClick={() => handleDelete(report.rating_id)}>Deletar avaliação</Button>
             </div>
           </div>
         ))

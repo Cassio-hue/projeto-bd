@@ -10,11 +10,9 @@ interface NavOptionProps {
 
 export function NavOption({ to, children }: NavOptionProps) {
   const pathname = usePathname()
-
-  // Verifica se a localização atual corresponde ao caminho fornecido
+  
   const isActive = pathname === to
 
-  // Define as classes CSS condicionalmente usando o Tailwind CSS
   const navOptionClasses = isActive ? 'underline underline-offset-8' : ''
 
   return (

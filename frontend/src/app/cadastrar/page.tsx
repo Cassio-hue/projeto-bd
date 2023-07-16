@@ -58,7 +58,7 @@ export default function Cadastrar() {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex flex-col gap-8 w-96 pb-12')}
+        className={clsx('flex flex-col gap-4 w-96 pb-12')}
       >
         <div className={clsx('flex flex-col justify-center items-center')}>
           <Image
@@ -74,7 +74,7 @@ export default function Cadastrar() {
           {selectedFile ? (
             ''
           ) : (
-            <span className={clsx('underline text-yellow-400')}>
+            <span className={clsx('underline text-red-500')}>
               Selecione uma foto de perfil
             </span>
           )}
@@ -84,10 +84,10 @@ export default function Cadastrar() {
         <Input name="name" type="text" label={'Nome'} />
         <Input name="email" type="email" label={'E-mail'} />
         <Input name="password" type="password" label={'Senha'} />
-        <span className="cursor-pointer text-sky-400 font-bold" onClick={() => window.location.href = '/'}>
+        <span className="cursor-pointer font-bold underline underline-offset-8" onClick={() => window.location.href = '/'}>
           Tela de login
         </span>
-        <Button type="submit">Entrar</Button>
+        <Button type="submit">Criar conta</Button>
       </form>
     </FormProvider>
   )

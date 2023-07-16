@@ -288,6 +288,21 @@ export const createRating = (ratingData: RatingType) => {
     })
 }
 
+export const deleteStudent = (email: string) => {
+  return fetch(`http://localhost:3333/students/${email}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+  }}).then((response) => {
+    if (response.status !== 200) {
+      throw new Error('Erro de solicitação: ' + response.status)
+    }
+    return response
+  }).catch((err) => {
+    throw err
+  })
+}
+
 //
 // Módulo de avaliação
 //

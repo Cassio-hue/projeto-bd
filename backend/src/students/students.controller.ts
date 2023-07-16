@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  BadRequestException,
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -24,6 +25,8 @@ export class StudentsController {
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   create(@Body() createStudentDto: CreateStudentDto, @UploadedFile() picture) {
+    if (!picture) throw new BadRequestException('Imagem é necessária');
+
     const boolean = createStudentDto.is_admin;
     if (boolean == 'true') createStudentDto.is_admin = true;
     else createStudentDto.is_admin = false;

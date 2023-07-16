@@ -43,11 +43,14 @@ export default function Login() {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit(onSubmit)}
-        className={clsx('flex flex-col gap-8 w-96 mt-')}
+        className={clsx('flex flex-col gap-4 w-96 mt-')}
       >
-        <Input name="email" type="email" label={'E-mail'} />
-        <Input name="password" type="password" label={'Senha'} />
-        <span className="cursor-pointer text-sky-400 font-bold" onClick={() => window.location.href = '/cadastrar'}>
+        <Input name="email" type="email" label={'E-mail*'} />
+        <Input name="password" type="password" label={'Senha*'} />
+        <span
+          className="cursor-pointer font-bold underline underline-offset-8"
+          onClick={() => (window.location.href = '/cadastrar')}
+        >
           Cadastrar conta
         </span>
         <Button type="submit">Entrar</Button>

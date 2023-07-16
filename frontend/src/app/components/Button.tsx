@@ -6,7 +6,7 @@ import { CSSProperties } from 'react'
 const styleType = {
   CREATE: {
     backgroundColor: '#16a34a',
-    color: 'black',
+    color: 'white',
   },
   UPDATE: {
     backgroundColor: '#fbbf24',
