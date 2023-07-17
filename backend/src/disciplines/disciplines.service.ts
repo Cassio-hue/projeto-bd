@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
-import { UpdateDisciplineDto } from './dto/update-discipline.dto';
 import { CRUD } from '../utils';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
@@ -13,8 +12,11 @@ export class DisciplinesService {
     this.CRUD = new CRUD(this.knex, this.table_name);
   }
 
-  create(createDisciplineDto: CreateDisciplineDto) {
-    return 'This action adds a new discipline';
+  async create(createDisciplineDto: CreateDisciplineDto) {
+    await this.CRUD.create(createDisciplineDto).catch(() => {
+      throw Error('Erro ao criar disciplina');
+    });
+    return 'Disciplina criada com sucesso';
   }
 
   async findAll() {
@@ -33,10 +35,6 @@ export class DisciplinesService {
           throw new NotFoundException('Id fornecido não foi encontrado');
         return res;
       });
-  }
-
-  update(id: number, updateDisciplineDto: UpdateDisciplineDto) {
-    return `This action updates a #${id} discipline`;
   }
 
   remove(id: string) {
