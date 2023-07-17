@@ -15,7 +15,7 @@ Na aplicação foi utilizado o SGBD Postgre psql (PostgreSQL)12.15. Segue o [lin
 
 Acesse o terminal do postgres
 
-Passo 1: Rode o comando abaixo e digite a senha do usuário postgres. Caso não saiba a senha, edite o arquivo pg_hba.conf. Segue [link](https://www.postgresqltutorial.com/postgresql-administration/postgresql-reset-password/) para tutorial.
+Passo 1: Acesse o terminal do psql, tente o comando abaixo e digite a senha do usuário postgres. Caso não saiba a senha, edite o arquivo pg_hba.conf. Segue [link](https://www.postgresqltutorial.com/postgresql-administration/postgresql-reset-password/) para tutorial.
 ```
 sudo -i -u postgres
 ```
@@ -51,8 +51,10 @@ Se tudo der certo, será criado uma pasta node_module nas pastas com todas as de
 ## Passo 4: Migrations e Seeds
 Para criar as tabelas no banco de dados e popula-las, rode os comandos:
 ```
-yarn run create // Cria as tabelas e as popula
+yarn run create // Cria e popula as tabelas
 ```
+
+Observação: caso ocorra algum problema, tente apagar o banco de dados e cria-lo novamente, em seguida rode o comando acima.
 
 ## Passo 5: Inicie o servidor do backend
 Com todas as configurações feitas e banco de dados configurado, rode o comando para iniciar o backend da aplicação:
@@ -65,3 +67,6 @@ O front não precisa de nenhuma configuração, somente ter as dependências bai
 ```
 yarn dev
 ```
+
+## Passo 7: Acessar o front-end da aplicação
+Se tudo ocorreu bem e os dois servidores estão rodando no terminal da sua máquina, em algum navegador acesse a url: http://localhost:3000/ para explorar a aplicação. 
