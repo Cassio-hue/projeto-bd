@@ -134,8 +134,7 @@ export const deleteClass = (id: number) => {
     })
     .catch((err) => {
       throw err
-    }
-    )
+    })
 }
 //
 // Módulo de departamentos
@@ -307,6 +306,28 @@ export const updateStudent = (studentData: StudentType) => {
     })
 }
 
+export const deleteStudent = (email: string) => {
+  return fetch(`http://localhost:3333/students/${email}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .catch((err) => {
+      throw err
+    })
+}
+
+//
+// Módulo de avaliação
+//
+
 export const createRating = (ratingData: RatingType) => {
   return fetch('http://localhost:3333/students/rating', {
     method: 'POST',
@@ -328,24 +349,24 @@ export const createRating = (ratingData: RatingType) => {
     })
 }
 
-export const deleteStudent = (email: string) => {
-  return fetch(`http://localhost:3333/students/${email}`, {
-    method: 'DELETE',
+export const getRating = (id: number) => {
+  return fetch(`http://localhost:3333/ratings/${id}`, {
+    method: 'GET',
     headers: {
-      Authorization: `Bearer ${getToken()}`
-  }}).then((response) => {
-    if (response.status !== 200) {
-      throw new Error('Erro de solicitação: ' + response.status)
-    }
-    return response
-  }).catch((err) => {
-    throw err
+      Authorization: `Bearer ${getToken()}`,
+    },
   })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response.json()
+    })
+    .then((json) => json)
+    .catch((err) => {
+      throw err
+    })
 }
-
-//
-// Módulo de avaliação
-//
 
 export const getAllRatings = () => {
   return fetch('http://localhost:3333/ratings/complete-info', {
@@ -398,6 +419,30 @@ export const deleteRating = (id: number) => {
       }
       return response
     })
+    .catch((err) => {
+      throw err
+    })
+}
+
+export const updateRating = (ratingData: RatingType) => {
+  return fetch(`http://localhost:3333/ratings/${ratingData.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({
+      score: ratingData.score,
+      comment: ratingData.comment,
+    }),
+  })
+    .then((response) => {
+      if (response.status !== 200) {
+        throw new Error('Erro de solicitação: ' + response.status)
+      }
+      return response
+    })
+    .then((json) => json)
     .catch((err) => {
       throw err
     })

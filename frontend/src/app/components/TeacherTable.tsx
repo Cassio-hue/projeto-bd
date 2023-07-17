@@ -59,8 +59,6 @@ export default function StickyHeadTable({ rows }: StickyHeadTableProps) {
     setPage(0)
   }
 
-  console.log('rows', rows)
-
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>

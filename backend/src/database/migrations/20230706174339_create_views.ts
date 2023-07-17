@@ -22,7 +22,8 @@ export async function up(knex: Knex): Promise<void> {
   SELECT 
     R.id as id, 
     R.score as score,
-    R.comment as comment, 
+    R.comment as comment,
+    S.email as student_email, 
     S.name as student_name,
     R.class_id as class_id,
     D.discipline_name as discipline_name 

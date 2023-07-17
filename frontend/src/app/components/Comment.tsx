@@ -1,18 +1,26 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-import { isAuthenticated, makeReport } from '../api/api'
+import { deleteRating, isAuthenticated, makeReport } from '../api/api'
 import { ReportType } from '../utils/types'
+import PencilIcon from '../utils/images/pen.svg'
+import DeleteIcon from '../utils/images/lixeira.svg'
+import Image from 'next/image'
+import { Modal } from './Modal'
+import { EditComment } from './EditComment'
 
 export interface RatingInfoType {
   id: number
   score: number
   comment: string
+  student_email: string
   student_name: string
   discipline_name: string
 }
 
 export const Comment = ({ values }: { values: RatingInfoType[] }) => {
   const [email, setEmail] = useState<string>()
+  const [open, setOpen] = useState<boolean>(false)
+  const [ratingId, setRatingId] = useState<number>(0)
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -36,8 +44,23 @@ export const Comment = ({ values }: { values: RatingInfoType[] }) => {
     res && alert('Avaliação reportada com sucesso')
   }
 
+  const handleDelete = async (id: number) => {
+    deleteRating(id)
+      .catch(() => {
+        alert('Erro ao remover avaliação')
+      })
+      .then((res) => {
+        if (res?.status === 200) {
+          alert('Avaliação removida com sucesso')
+        }
+      })
+  }
+
   return (
     <>
+      <Modal open={open} handleClose={() => setOpen(false)}>
+        <EditComment rating_id={ratingId} />
+      </Modal>
       {values?.length === 0 ? (
         <span className="mb-4">Nenhuma avaliação encontrada</span>
       ) : (
@@ -53,14 +76,42 @@ export const Comment = ({ values }: { values: RatingInfoType[] }) => {
               <span>Estudante: {value.student_name}</span>
               <span>Avaliação: {value.score}</span>
               <span>Comentário: {value.comment}</span>
-              <span
-                className={clsx(
-                  'flex justify-center items-center rounded-full bg-red-600 text-white w-10 p-2 cursor-pointer'
+              <div className="flex justify-between items-center">
+                <span
+                  className={clsx(
+                    'flex justify-center items-center rounded-full bg-red-600 text-white w-10 p-2 cursor-pointer'
+                  )}
+                  onClick={() => handleReport(value.id, email || '')}
+                >
+                  D
+                </span>
+                {value.student_email === email && (
+                  <div className="flex items-center">
+                    <Image
+                      src={PencilIcon}
+                      alt="editar-icon"
+                      height={30}
+                      width={30}
+                      className="cursor-pointer pr-2"
+                      onClick={() => {
+                        setRatingId(value.id)
+                        setOpen(true)
+                      }}
+                    />
+
+                    <Image
+                      src={DeleteIcon}
+                      alt="apagar-icon"
+                      height={30}
+                      width={30}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        handleDelete(value.id)
+                      }}
+                    />
+                  </div>
                 )}
-                onClick={() => handleReport(value.id, email || '')}
-              >
-                D
-              </span>
+              </div>
             </div>
           ))}
         </div>

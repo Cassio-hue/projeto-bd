@@ -49,6 +49,7 @@ export type StudentType = {
 }
 
 export interface RatingType {
+  id?: number
   score?: number | undefined
   comment?: string | undefined
   student_email: string | null

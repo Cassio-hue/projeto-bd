@@ -31,12 +31,10 @@ export const DeleteClass = () => {
   const onSubmit = async (data: ClassType) => {
     if (!data.id) return alert('Selecione uma turma')
     await deleteClass(data.id)
-      .catch((res) => {
-        console.log('Teve resposta?', res)
+      .catch(() => {
         alert('Erro ao deletar turma')
       })
       .then((res) => {
-        console.log(res)
         res?.status === 200 && alert('Turma deletada com sucesso!')
       })
   }
