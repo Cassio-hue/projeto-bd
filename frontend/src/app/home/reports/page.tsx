@@ -61,9 +61,12 @@ export default function Reports() {
     }
   }
 
+  if (!reports) {
+    return <h1>Carregando...</h1>
+  }
   return (
     <>
-      {reports ? (
+      {reports.length > 0 ? (
         reports.map((report) => (
           <div
             className={clsx('w-1/2 flex flex-col border rounded-lg p-4 m-2')}
