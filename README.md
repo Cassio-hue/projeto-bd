@@ -1,4 +1,4 @@
-# BD_UnB 2023.1 PEDRO GARCIA
+# Banco de Dados 2023.1 PEDRO GARCIA
 
 ## Aviso
 Para desenvolvimento da aplicação, foi utilizado no WSL 2 do Windows 10, a distribuição Ubuntu 12.15-0ubuntu0.20.04.1
